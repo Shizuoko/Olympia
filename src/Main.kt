@@ -17,6 +17,7 @@ fun menu()
     {
         println("OK, let's start!")
         var gameFlag: Boolean = true
+        LoadMap()
         MainLoop(gameFlag)
     }
     else if (play.contains("exit"))
