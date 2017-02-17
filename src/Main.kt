@@ -31,12 +31,16 @@ fun menu()
 }
 fun MainLoop(gameFlag: Boolean)
 {
+    var cycleCount: Int = 0
+
     while (gameFlag == true)
     {
         println("\nYour wish is my command:\n")
         val user_command = readLine()?.toLowerCase()
 
         GameInput(user_command)
+
+        cycleCount++
     }
 }
 fun exit()
