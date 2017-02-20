@@ -12,7 +12,7 @@ fun LoadMap()
     val Size = 40
 
     val MapFile: String = File("assets/map.txt").readText(charset = Charsets.UTF_8)
-    var Map = Array(Size, { IntArray(Size) })
+    var Map:Array<Array<Cell>> = Array(Size,{Array(Size,{Cell("T","C")})})
 
     var MapFileIterator = 0
 
@@ -20,9 +20,12 @@ fun LoadMap()
     {
         for (Xindex: Int in 0..39)
         {
-            var MapCharacter = MapFile.get(MapFileIterator).toInt()
-            Map[Yindex][Xindex] = MapCharacter
+            var MapCharacter = MapFile.get(MapFileIterator).toString()
+            Map[Yindex][Xindex] = Cell(MapCharacter,"C")
             MapFileIterator++
         }
     }
+}
+
+class Cell(var TerrainType: String, var Coordinates: String) {
 }
