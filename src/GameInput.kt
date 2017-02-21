@@ -6,10 +6,23 @@ import jdk.internal.util.xml.impl.Input
 fun GameInput(user_command: String?)
 {
     when (user_command) {
-        "wait" -> print("Waiting")
+/*-------------------------
+_____MILITARY COMMANDS_____
+--------------------------*/
         "create army" -> CreateNewArmy()
         "create an army" -> CreateNewArmy()
         "create an army worthy of Mordor!" -> CreateNewArmy()
+
+        "create general" -> CreateNewLeader()
+        "create a general" -> CreateNewLeader()
+        "create leader" -> CreateNewLeader()
+        "create a general" -> CreateNewLeader()
+
+        "assign general" -> AssignNewGeneral()
+/*-------------------------
+_____GENERAL COMMANDS_____
+--------------------------*/
+        "wait" -> print("Waiting")
         "exit" ->
         {
             var gameFlag = false
