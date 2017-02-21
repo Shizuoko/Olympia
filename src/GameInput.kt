@@ -20,6 +20,7 @@ _____MILITARY COMMANDS_____
 
         "assign general" -> AssignNewLeader()
         "assign a general" -> AssignNewLeader()
+        
 /*-------------------------
 _____GENERAL COMMANDS_____
 --------------------------*/
