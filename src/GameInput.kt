@@ -16,11 +16,11 @@ _____MILITARY COMMANDS_____
         "create general" -> CreateNewLeader()
         "create a general" -> CreateNewLeader()
         "create leader" -> CreateNewLeader()
-        "create a general" -> CreateNewLeader()
+        "create a leader" -> CreateNewLeader()
 
         "assign general" -> AssignNewLeader()
         "assign a general" -> AssignNewLeader()
-        
+
 /*-------------------------
 _____GENERAL COMMANDS_____
 --------------------------*/
