@@ -21,11 +21,20 @@ fun LoadMap()
         for (Xindex: Int in 0..39)
         {
             var MapCharacter = MapFile.get(MapFileIterator).toString()
-            Map[Yindex][Xindex] = Cell(MapCharacter,"C")
+            var CurrentCoordinates: String = "Yindex" + "," + "Xindex"
+
+            Map[Yindex][Xindex] = Cell(MapCharacter,CurrentCoordinates)
             MapFileIterator++
         }
     }
 }
 
-class Cell(var TerrainType: String, var Coordinates: String) {
+open class Cell(var TerrainType: String, var Coordinates: String)
+{
+
+}
+
+class CityCell(var ArmySize: Int = 10000, TerrainType: String, Coordinates: String) : Cell(TerrainType, Coordinates)
+{
+
 }

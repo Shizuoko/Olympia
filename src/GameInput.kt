@@ -7,6 +7,9 @@ fun GameInput(user_command: String?)
 {
     when (user_command) {
         "wait" -> print("Waiting")
+        "create army" -> CreateNewArmy()
+        "create an army" -> CreateNewArmy()
+        "create an army worthy of Mordor!" -> CreateNewArmy()
         "exit" ->
         {
             var gameFlag = false
