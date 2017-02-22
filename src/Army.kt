@@ -12,32 +12,26 @@ var ArmyLeaderList: MutableList<ArmyLeader> = arrayListOf()
 
 fun CreateNewArmy()
 {
-    if (ArmyList.size == 0)
+    println("How would you like to call it?")
+    val NewArmyName: String = readLine()!!
+
+    var isDouble = false
+
+    if (ArmyList.size != 0)
     {
-        println("How would you like to call it?")
-        val NewArmyName: String = readLine()!!
-
-        println("Where should we create an army?")
-        val NewArmyLocation: String = readLine()!!
-
-        val Army = Army(NewArmyName, NewArmyLocation)
-        ArmyList.add(Army)
-        println(ArmyList.get(0).ArmyName)
-
-        println("Army " + NewArmyName + " in " + NewArmyLocation + " created successfully!")
-    }
-    else
-    {
-        println("How would you like to call it?")
-        val NewArmyName: String = readLine()!!
-
-        for (Iterator: Int in 0..ArmyList.size as Int) {
-            if (ArmyList.get(Iterator).ArmyName == NewArmyName) {
+        for (Iterator: Int in 0..ArmyList.size-1)
+        {
+            if (ArmyList.get(Iterator).ArmyName == NewArmyName)
+            {
                 println("B-b-but Master, we already have an army with specified name!\n")
+                isDouble = true
                 CreateNewArmy()
             }
         }
+    }
 
+    if (isDouble == false)
+    {
         println("Where should we create an army?")
         val NewArmyLocation: String = readLine()!!
 
@@ -73,7 +67,7 @@ fun AssignNewLeader()
 
         var SearchResult: Int = 0
 
-        for (Iterator: Int in 0..ArmyList.size as Int) {
+        for (Iterator: Int in 0..ArmyList.size-1) {
             if (ArmyList.get(Iterator).ArmyName == AssignArmyName) {
                 ArmyList.get(Iterator).CommandingOfficer = AssignLeaderName
                 SearchResult++
