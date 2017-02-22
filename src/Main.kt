@@ -42,6 +42,7 @@ fun MainLoop(gameFlag: Boolean)
         GameInput(user_command)
 
         cycleCount++
+        println ("\n Turn number: " + cycleCount + "\n")
     }
 }
 fun exit()

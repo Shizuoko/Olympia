@@ -20,6 +20,8 @@ _____MILITARY COMMANDS_____
 
         "assign general" -> AssignNewLeader()
         "assign a general" -> AssignNewLeader()
+        "assign leader" -> AssignNewLeader()
+        "assign a leader" -> AssignNewLeader()
 
 /*-------------------------
 _____GENERAL COMMANDS_____

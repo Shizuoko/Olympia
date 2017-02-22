@@ -16,9 +16,9 @@ fun LoadMap()
 
     var MapFileIterator = 0
 
-    for (Yindex: Int in 0..39)
+    for (Yindex: Int in 0..Size-1)
     {
-        for (Xindex: Int in 0..39)
+        for (Xindex: Int in 0..Size-1)
         {
             var MapCharacter = MapFile.get(MapFileIterator).toString()
             var CurrentCoordinates: String = "Yindex" + "," + "Xindex"
