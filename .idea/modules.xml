@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Olympia.iml" filepath="$PROJECT_DIR$/Olympia.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Olympia.iml" filepath="$PROJECT_DIR$/.idea/modules/Olympia.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Olympia_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Olympia_main.iml" group="Olympia" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Olympia_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Olympia_test.iml" group="Olympia" />
     </modules>
   </component>
 </project>
