@@ -9,8 +9,6 @@ val MapSize = 40
 val MapFile: String = File("assets/map.txt").readText(charset = Charsets.UTF_8)
 var Map:Array<Array<Cell>> = Array(MapSize,{Array(MapSize,{Cell("T","C")})})
 
-val CityInfoFile: String = File("assets/cities.txt").readText(charset = Charsets.UTF_8)
-
 fun LoadMap()
 {
     var MapFileIterator = 0
