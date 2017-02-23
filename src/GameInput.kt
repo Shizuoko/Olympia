@@ -24,6 +24,12 @@ _____MILITARY COMMANDS_____
         "assign a leader" -> AssignNewLeader()
 
 /*-------------------------
+______DEBUG COMMANDS______
+--------------------------*/
+
+        "show cities" -> ShowCitiesCoords()
+
+/*-------------------------
 _____GENERAL COMMANDS_____
 --------------------------*/
         "wait" -> print("Waiting")
