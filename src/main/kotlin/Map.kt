@@ -1,3 +1,6 @@
+import com.fasterxml.jackson.core.JsonFactory
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import java.io.File
 
 /**
@@ -6,37 +9,45 @@ import java.io.File
 
 val MapSize = 40
 
-val MapFile: String = File("assets/map.txt").readText(charset = Charsets.UTF_8)
-var Map:Array<Array<Cell>> = Array(MapSize,{Array(MapSize,{Cell("T","C")})})
+val MapFile: String = File("assets/map.txt").readText(charset = Charsets.UTF_8).replace("\n", "").replace("\r", "")
+var Map:Array<Array<Cell>> = Array(MapSize,{Array(MapSize,{Cell("T",0,0,0)})})
+
+//var Cities: MutableSet<CityCell> = Reader.JSON.readValue(File("assets/cities.json"))
 
 fun LoadMap()
 {
     var MapFileIterator = 0
 
-    for (Xindex: Int in 0..MapSize-1)
+    for (Yindex: Int in 0..MapSize-1)
     {
-        for (Yindex: Int in 0..MapSize-1)
+        for (Xindex: Int in 0..MapSize-1)
         {
-            var MapCharacter = MapFile.get(MapFileIterator).toString()
-            var CurrentCoordinates: String = "Xindex" + "," + "Yindex"
+            val MapCharacter = MapFile.get(MapFileIterator).toString()
+            val x = Xindex
+            val y = Yindex
+            var MovementCost: Int = 0
 
-            Map[Xindex][Yindex] = Cell(MapCharacter,CurrentCoordinates)
-            /*if(Map[Xindex][Yindex].TerrainType == "C") //we'll probably need some exceptions here in the future
+            when(MapCharacter)
             {
-                Map[Xindex][Yindex] = CityCell()
-            }*/
+                "C"-> MovementCost = 50 //city
+                "I"-> MovementCost = 70 //field
+                "F"-> MovementCost = 100 //forest
+                "M"-> MovementCost = 150 //mountains
+            }
+
+            Map[Yindex][Xindex] = Cell(MapCharacter,x,y,MovementCost)
             MapFileIterator++
         }
     }
 }
 
-fun ShowCitiesCoords()
+fun PrintCitiesCoords()
 {
-    for (Xindex: Int in 0..MapSize-1)
+    for (Yindex: Int in 0..MapSize-1)
     {
-        for (Yindex: Int in 0..MapSize-1)
+        for (Xindex: Int in 0..MapSize-1)
         {
-            if(Map[Xindex][Yindex].TerrainType == "C")
+            if(Map[Yindex][Xindex].terrain == "C")
             {
                 println("X:" + Xindex + " Y:" + Yindex)
             }
@@ -44,12 +55,29 @@ fun ShowCitiesCoords()
     }
 }
 
-open class Cell(var TerrainType: String, var Coordinates: String)
+fun PrintMap()
+{
+    for (Yindex: Int in 0..MapSize-1)
+    {
+        for (Xindex: Int in 0..MapSize-1)
+        {
+                print(Map[Yindex][Xindex].terrain)
+        }
+        print("\n")
+    }
+}
+
+object Reader {
+    val JSON = jacksonObjectMapper()
+    val JSONFactory = JsonFactory()
+}
+
+open class Cell(var terrain: String, var x: Int, var y: Int, var movementCost: Int)
 {
 
 }
 
-class CityCell(var CityName: String, var id: Int, var Controller: String, var ArmySize: Int = 10000, TerrainType: String, Coordinates: String) : Cell(TerrainType, Coordinates)
+class CityCell(var name: String, var id: Int, var controller: String, terrain: String, x: Int, y: Int, movementCost: Int) : Cell(terrain, x, y, movementCost)
 {
-
+    var ArmySize: Int = 10000
 }

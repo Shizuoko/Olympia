@@ -1,0 +1,18 @@
+[{
+  "name": "Rome",
+  "id": 1,
+  "coordinates": "4,15",
+  "controller": "Roman Republic"
+},
+  {
+    "name": "Carthage",
+    "id": 2,
+    "coordinates": "14,16",
+    "controller": "Carthaginian Empire"
+  },
+  {
+    "name": "Athens",
+    "id": 3,
+    "coordinates": "38,3",
+    "controller": "City of Athens"
+  }]

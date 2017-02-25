@@ -9,6 +9,43 @@ import java.util.*
 var ArmyList: MutableList<Army> = arrayListOf()
 var ArmyLeaderList: MutableList<ArmyLeader> = arrayListOf()
 
+fun SelectArmy(): Int {
+    var armyID: Int = 0
+    var searchResult = 0
+
+    println("What army do you want to select?")
+    val selectedName: String = readLine()!!
+
+    if (ArmyList.size != 0) {
+        for (Iterator: Int in 0..ArmyList.size - 1) {
+            if (ArmyList.get(Iterator).armyName == selectedName) {
+                armyID = Iterator
+                searchResult++
+                break
+            }
+        }
+    }
+    else {
+        println("You don't have any armies!")
+    }
+
+    if (searchResult == 0 && ArmyList.size != 0){
+        println("There is no army with specified name!")
+        armyID = -1
+    }
+    return armyID
+}
+
+fun PrintArmyList(){
+    if (ArmyList.size != 0) {
+        for (Iterator: Int in 0..ArmyList.size - 1) {
+            println("ARMY LIST \n" + ":" + ArmyList.get(Iterator).armyName + " ----- " + ArmyList.get(Iterator).armySize + " soldiers")
+        }
+    }
+    else {
+        println("You don't have any armies!")
+    }
+}
 
 fun CreateNewArmy()
 {
@@ -21,7 +58,7 @@ fun CreateNewArmy()
     {
         for (Iterator: Int in 0..ArmyList.size-1)
         {
-            if (ArmyList.get(Iterator).ArmyName == NewArmyName)
+            if (ArmyList.get(Iterator).armyName == NewArmyName)
             {
                 println("B-b-but Master, we already have an army with specified name!\n")
                 isDouble = true
@@ -33,11 +70,14 @@ fun CreateNewArmy()
     if (isDouble == false)
     {
         println("Where should we create an army?")
-        val NewArmyLocation: String = readLine()!!
+        println("x:")
+        val x: Int = readLine()!!.toInt()
+        println("y:")
+        val y: Int = readLine()!!.toInt()
 
-        val Army = Army(NewArmyName, NewArmyLocation)
+        val Army = Army(NewArmyName, x, y)
         ArmyList.add(Army)
-        println("Army " + NewArmyName + " in " + NewArmyLocation + " created successfully!")
+        println("Army " + NewArmyName + " in " + x + "," + y + " created successfully!")
     }
 }
 
@@ -68,8 +108,8 @@ fun AssignNewLeader()
         var SearchResult: Int = 0
 
         for (Iterator: Int in 0..ArmyList.size-1) {
-            if (ArmyList.get(Iterator).ArmyName == AssignArmyName) {
-                ArmyList.get(Iterator).CommandingOfficer = AssignLeaderName
+            if (ArmyList.get(Iterator).armyName == AssignArmyName) {
+                ArmyList.get(Iterator).commandingOfficer = AssignLeaderName
                 SearchResult++
                 break
             }
@@ -82,12 +122,92 @@ fun AssignNewLeader()
     }
 }
 
-class Army(var ArmyName: String, var ArmyLocation: String, var ArmySize: Int = 0, var CommandingOfficer: String = "No general", var MovementOrder: String = "Nowhere")
+fun ArmiesReport()
 {
-
+    if (ArmyList.size != 0) {
+        for (Iterator: Int in 0..ArmyList.size - 1) {
+            ArmyList.get(Iterator).report()
+        }
+    }
 }
 
-class ArmyLeader(var LeaderName: String)
+fun ReloadArmiesMP()
+{
+    if (ArmyList.size != 0) {
+        for (Iterator: Int in 0..ArmyList.size - 1) {
+            ArmyList.get(Iterator).movementPoints = 200
+        }
+    }
+}
+
+class Army(var armyName: String, var x: Int, var y: Int)
+{
+    var armySize: Int = 0
+    var commandingOfficer: String = "No general"
+    var movementPoints: Int = 200
+
+    fun move(direction: String)
+    {
+            //should've used 'when', but oh well
+            if (direction.toLowerCase() == "north" && y>0){
+                y--
+                movementPoints -= Map.get(x).get(y).movementCost
+            }
+
+            if (direction.toLowerCase() == "south" && y<MapSize-1){
+                y++
+                movementPoints -= Map.get(x).get(y).movementCost
+            }
+
+            if (direction.toLowerCase() == "west" && x>0){
+                x--
+                movementPoints -= Map.get(x).get(y).movementCost
+            }
+
+            if (direction.toLowerCase() == "east" && x<MapSize-1){
+                x++
+                movementPoints -= Map.get(x).get(y).movementCost
+            }
+
+            if (direction.toLowerCase() == "north-west" && x>0 && y>0) {
+                y--
+                x--
+                movementPoints -= Map.get(x).get(y).movementCost
+            }
+
+            if (direction.toLowerCase() == "north-east" && x<MapSize-1 && y>0) {
+                y--
+                x++
+                movementPoints -= Map.get(x).get(y).movementCost
+            }
+
+            if (direction.toLowerCase() == "south-west" && x>0 && y<MapSize-1) {
+                y++
+                x--
+                movementPoints -= Map.get(x).get(y).movementCost
+            }
+
+            if (direction.toLowerCase() == "south-east" && x<MapSize-1 && y<MapSize-1) {
+                y++
+                x++
+                movementPoints -= Map.get(x).get(y).movementCost
+            }
+
+    }
+
+    fun increaseSize()
+    {
+
+    }
+
+    fun report()
+    {
+        println("\n" + armyName + " is at: " + x + "," + y)
+        println("We have " + movementPoints + " movement points")
+    }
+}
+
+class ArmyLeader(var leaderName: String)
 {
 
 }
