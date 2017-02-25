@@ -150,47 +150,63 @@ class Army(var armyName: String, var x: Int, var y: Int)
     {
             //should've used 'when', but oh well
             if (direction.toLowerCase() == "north" && y>0){
-                y--
-                movementPoints -= Map.get(x).get(y).movementCost
+                if (Map.get(x).get(y-1).movementCost <= movementPoints) {
+                    y--
+                    movementPoints -= Map.get(x).get(y).movementCost
+                }
             }
 
             if (direction.toLowerCase() == "south" && y<MapSize-1){
-                y++
-                movementPoints -= Map.get(x).get(y).movementCost
+                if (Map.get(x).get(y+1).movementCost <= movementPoints) {
+                    y++
+                    movementPoints -= Map.get(x).get(y).movementCost
+                }
             }
 
             if (direction.toLowerCase() == "west" && x>0){
-                x--
-                movementPoints -= Map.get(x).get(y).movementCost
+                if (Map.get(x).get(x-1).movementCost <= movementPoints) {
+                    x--
+                    movementPoints -= Map.get(x).get(y).movementCost
+                }
             }
 
             if (direction.toLowerCase() == "east" && x<MapSize-1){
-                x++
-                movementPoints -= Map.get(x).get(y).movementCost
+                if (Map.get(x).get(x+1).movementCost <= movementPoints) {
+                    x++
+                    movementPoints -= Map.get(x).get(y).movementCost
+                }
             }
 
             if (direction.toLowerCase() == "north-west" && x>0 && y>0) {
-                y--
-                x--
-                movementPoints -= Map.get(x).get(y).movementCost
+                if (Map.get(x-1).get(y-1).movementCost <= movementPoints) {
+                    y--
+                    x--
+                    movementPoints -= Map.get(x).get(y).movementCost
+                }
             }
 
             if (direction.toLowerCase() == "north-east" && x<MapSize-1 && y>0) {
-                y--
-                x++
-                movementPoints -= Map.get(x).get(y).movementCost
+                if (Map.get(x+1).get(y-1).movementCost <= movementPoints) {
+                    y--
+                    x++
+                    movementPoints -= Map.get(x).get(y).movementCost
+                }
             }
 
             if (direction.toLowerCase() == "south-west" && x>0 && y<MapSize-1) {
-                y++
-                x--
-                movementPoints -= Map.get(x).get(y).movementCost
+                if (Map.get(x-1).get(y+1).movementCost <= movementPoints) {
+                    y++
+                    x--
+                    movementPoints -= Map.get(x).get(y).movementCost
+                }
             }
 
             if (direction.toLowerCase() == "south-east" && x<MapSize-1 && y<MapSize-1) {
-                y++
-                x++
-                movementPoints -= Map.get(x).get(y).movementCost
+                if (Map.get(x+1).get(y+1).movementCost <= movementPoints) {
+                    y++
+                    x++
+                    movementPoints -= Map.get(x).get(y).movementCost
+                }
             }
 
     }
