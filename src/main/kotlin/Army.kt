@@ -27,6 +27,7 @@ fun SelectArmy(): Int {
     }
     else {
         println("You don't have any armies!")
+        armyID = -1
     }
 
     if (searchResult == 0 && ArmyList.size != 0){
@@ -211,9 +212,16 @@ class Army(var armyName: String, var x: Int, var y: Int)
 
     }
 
-    fun increaseSize()
+    fun increaseSize(recruits: Int)
     {
-
+        if (Map[x][y] is CityCell)
+        {
+            //nope, doesn't work
+        }
+        else
+        {
+            println("This city doesn't have the number of recruits you specified")
+        }
     }
 
     fun report()

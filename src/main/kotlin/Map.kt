@@ -12,7 +12,7 @@ val MapSize = 40
 val MapFile: String = File("assets/map.txt").readText(charset = Charsets.UTF_8).replace("\n", "").replace("\r", "")
 var Map:Array<Array<Cell>> = Array(MapSize,{Array(MapSize,{Cell("T",0,0,0)})})
 
-//var Cities: MutableSet<CityCell> = Reader.JSON.readValue(File("assets/cities.json"))
+var Cities: Array<CityCell> = Reader.JSON.readValue(File("assets/cities.json"))
 
 fun LoadMap()
 {
@@ -67,6 +67,17 @@ fun PrintMap()
     }
 }
 
+fun loadCities()
+{
+    for (Iterator in 0..Cities.size-1)
+    {
+        var x = Cities.get(Iterator).x
+        var y = Cities.get(Iterator).y
+
+        Map[x][y] = CityCell(Cities.get(Iterator).name,Cities.get(Iterator).id,Cities.get(Iterator).controller,Map[x][y].terrain,x,y,Map[x][y].movementCost)
+    }
+}
+
 object Reader {
     val JSON = jacksonObjectMapper()
     val JSONFactory = JsonFactory()
@@ -79,5 +90,5 @@ open class Cell(var terrain: String, var x: Int, var y: Int, var movementCost: I
 
 class CityCell(var name: String, var id: Int, var controller: String, terrain: String, x: Int, y: Int, movementCost: Int) : Cell(terrain, x, y, movementCost)
 {
-    var ArmySize: Int = 10000
+    var armySize: Int = 10000
 }

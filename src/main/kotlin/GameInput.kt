@@ -54,6 +54,18 @@ _____MILITARY COMMANDS_____
             }
         }
 
+        "recruit into army" ->
+        {
+            var armyID = SelectArmy()
+            var recruits: Int
+            if (armyID != -1)
+            {
+                println("How much do you want to recruit?")
+                recruits = readLine()!!.toInt()
+                ArmyList.get(armyID).increaseSize(recruits)
+            }
+        }
+
         "print army list" -> PrintArmyList()
 
 /*-------------------------
