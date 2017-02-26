@@ -41,6 +41,17 @@ fun LoadMap()
     }
 }
 
+fun LoadCities()
+{
+    for (Iterator in 0..Cities.size-1)
+    {
+        var x = Cities.get(Iterator).x
+        var y = Cities.get(Iterator).y
+
+        Map[x][y] = CityCell(Cities.get(Iterator).name,Cities.get(Iterator).id,Cities.get(Iterator).controller,Map[x][y].terrain,x,y,Map[x][y].movementCost)
+    }
+}
+
 fun PrintCitiesCoords()
 {
     for (Yindex: Int in 0..MapSize-1)
@@ -67,14 +78,11 @@ fun PrintMap()
     }
 }
 
-fun loadCities()
+fun PrintCityNames()
 {
-    for (Iterator in 0..Cities.size-1)
+    for(Iterator in 0..Cities.size-1)
     {
-        var x = Cities.get(Iterator).x
-        var y = Cities.get(Iterator).y
-
-        Map[x][y] = CityCell(Cities.get(Iterator).name,Cities.get(Iterator).id,Cities.get(Iterator).controller,Map[x][y].terrain,x,y,Map[x][y].movementCost)
+        println(Cities.get(Iterator).name + " (" + Cities.get(Iterator).armySize + " recruits)")
     }
 }
 

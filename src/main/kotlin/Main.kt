@@ -24,6 +24,7 @@ fun menu()
     {
         println("OK, let's start!")
         LoadMap()
+        LoadCities()
         MainLoop(gameFlag)
     }
     else if (play.contains("exit"))

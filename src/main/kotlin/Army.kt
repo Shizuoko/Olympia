@@ -70,15 +70,33 @@ fun CreateNewArmy()
 
     if (isDouble == false)
     {
-        println("Where should we create an army?")
-        println("x:")
-        val x: Int = readLine()!!.toInt()
-        println("y:")
-        val y: Int = readLine()!!.toInt()
+        println("Where should we create an army? Pick a city from the list:")
+        PrintCityNames()
+        val cityName = readLine()!!
 
-        val Army = Army(NewArmyName, x, y)
-        ArmyList.add(Army)
-        println("Army " + NewArmyName + " in " + x + "," + y + " created successfully!")
+        var x: Int = 0
+        var y: Int = 0
+
+        var searchResult: String = "There is no such city in the list"
+
+        for(Iterator in 0..Cities.size-1)
+        {
+            if(Cities.get(Iterator).name.equals(cityName))
+            {
+                x = Cities.get(Iterator).x
+                y = Cities.get(Iterator).y
+                searchResult = Cities.get(Iterator).name
+            }
+        }
+
+        if(searchResult.equals("There is no such city in the list")) {
+            println(searchResult)
+        }
+        else {
+            val Army = Army(NewArmyName, x, y)
+            ArmyList.add(Army)
+            println("Army " + NewArmyName + " in " + searchResult + " created successfully!")
+        }
     }
 }
 
@@ -216,18 +234,35 @@ class Army(var armyName: String, var x: Int, var y: Int)
     {
         if (Map[x][y] is CityCell)
         {
-            //nope, doesn't work
+            var CityCell: CityCell = Map[x][y] as CityCell
+            if (recruits < CityCell.armySize)
+            {
+                CityCell.armySize = CityCell.armySize - recruits
+                armySize = armySize + recruits
+                Map[x][y] = CityCell
+            }
+            else
+            {
+                println("This city doesn't have this much recruits!")
+            }
         }
         else
         {
-            println("This place doesn't have the number of recruits you specified")
+            println("There are no cities near!")
         }
     }
 
     fun report()
     {
-        println("\n" + armyName + " is at: " + x + "," + y)
+        if (Map[x][y] is CityCell) {
+            val CityCell = Map[x][y] as CityCell
+            println("\n" + armyName + " is at " + CityCell.name)
+        }
+        else {
+            println("\n" + armyName + " is at: " + x + "," + y)
+        }
         println("We have " + movementPoints + " movement points")
+        println("We have " + armySize + " recruits\n")
     }
 }
 

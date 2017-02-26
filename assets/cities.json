@@ -2,7 +2,7 @@
   "name": "Rome",
   "id": 1,
   "controller": "Roman Republic",
-  "x": "6",
+  "x": "7",
   "y": "4",
   "terrain": "C"
 },
@@ -10,7 +10,7 @@
     "name": "Carthage",
     "id": 2,
     "controller": "Carthaginian Empire",
-    "x": "27",
+    "x": "26",
     "y": "23",
     "terrain": "C"
   },

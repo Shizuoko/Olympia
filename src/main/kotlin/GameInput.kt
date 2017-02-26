@@ -72,7 +72,8 @@ _____MILITARY COMMANDS_____
 ______DEBUG COMMANDS______
 --------------------------*/
 
-        "show cities" -> PrintCitiesCoords()
+        "show cities" -> PrintCityNames()
+        "show cities coords" -> PrintCitiesCoords()
         "show map" -> PrintMap()
 
 /*-------------------------
