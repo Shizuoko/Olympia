@@ -220,7 +220,7 @@ class Army(var armyName: String, var x: Int, var y: Int)
         }
         else
         {
-            println("This city doesn't have the number of recruits you specified")
+            println("This place doesn't have the number of recruits you specified")
         }
     }
 
