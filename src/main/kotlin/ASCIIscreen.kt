@@ -5,15 +5,14 @@ import java.io.File
  * Created by Shizuoko on 27.02.2017.
  */
 
-class ASCIIscreen ()
-{
+
     val InterfaceFile: String = File("assets/interface.txt").readText(charset = Charsets.UTF_8).replace("\n", "").replace("\r", "")
     val height = 43
     val width = 57
     var C: Char = 1.toChar()
     var screenArray: Array<Array<Char>> = Array(height,{Array(width,{C})})
 
-    fun initInterface()
+fun initInterface()
     {
         var InterfaceIterator = 0
 
@@ -37,6 +36,23 @@ class ASCIIscreen ()
             }
         }
 
+        for (Xiterator in 0..height-1)
+        {
+            for(Yiterator in 0..width-1)
+            {
+                if (Xiterator>0&&Xiterator<40&&Yiterator>0&&Yiterator<40)
+                {
+                    if(ArmyList.size != 0)
+                    {
+                        for (ArmyIterator in 0..ArmyList.size - 1)
+                        {
+                            screenArray[ArmyList[ArmyIterator].x+1][ArmyList[ArmyIterator].y+1] = "A".toCharArray().get(0)
+                        }
+                    }
+                }
+            }
+        }
+
         var armiesString:String = ""
         if (ArmyList.size != 0)
         {
@@ -46,8 +62,6 @@ class ASCIIscreen ()
             }
         }
         else{armiesString = "No armies"}
-
-        println(armiesString)
 
         var armiesStringIterator = 0
 
@@ -62,10 +76,9 @@ class ASCIIscreen ()
                 }
             }
         }
-
-        printInterface()
     }
-    fun printInterface()
+
+fun printInterface()
     {
         for (Xiterator in 0..height-1)
         {
@@ -76,5 +89,3 @@ class ASCIIscreen ()
             print("\n")
         }
     }
-
-}
