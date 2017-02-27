@@ -25,6 +25,7 @@ fun menu()
         println("OK, let's start!")
         LoadMap()
         LoadCities()
+        ASCIIscreen().initInterface()
         MainLoop(gameFlag)
     }
     else if (play.contains("exit"))
@@ -55,6 +56,7 @@ fun MainLoop(gameFlag: Boolean)
 
         cycleCount++
         println ("\n Turn number: " + cycleCount + "\n")
+        ASCIIscreen().printInterface()
     }
 }
 fun exit()

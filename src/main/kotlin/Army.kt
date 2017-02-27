@@ -9,12 +9,9 @@ import java.util.*
 var ArmyList: MutableList<Army> = arrayListOf()
 var ArmyLeaderList: MutableList<ArmyLeader> = arrayListOf()
 
-fun SelectArmy(): Int {
+fun SelectArmy(selectedName: String): Int {
     var armyID: Int = 0
     var searchResult = 0
-
-    println("What army do you want to select?")
-    val selectedName: String = readLine()!!
 
     if (ArmyList.size != 0) {
         for (Iterator: Int in 0..ArmyList.size - 1) {
@@ -48,22 +45,19 @@ fun PrintArmyList(){
     }
 }
 
-fun CreateNewArmy()
+fun CreateNewArmy(newArmyName: String)
 {
-    println("How would you like to call it?")
-    val NewArmyName: String = readLine()!!
-
     var isDouble = false
 
     if (ArmyList.size != 0)
     {
         for (Iterator: Int in 0..ArmyList.size-1)
         {
-            if (ArmyList.get(Iterator).armyName == NewArmyName)
+            if (ArmyList.get(Iterator).armyName == newArmyName)
             {
                 println("B-b-but Master, we already have an army with specified name!\n")
                 isDouble = true
-                CreateNewArmy()
+                CreateNewArmy(newArmyName)
             }
         }
     }
@@ -93,9 +87,9 @@ fun CreateNewArmy()
             println(searchResult)
         }
         else {
-            val Army = Army(NewArmyName, x, y)
+            val Army = Army(newArmyName, x, y)
             ArmyList.add(Army)
-            println("Army " + NewArmyName + " in " + searchResult + " created successfully!")
+            println("Army " + newArmyName + " in " + searchResult + " created successfully!")
         }
     }
 }

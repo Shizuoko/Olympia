@@ -12,20 +12,16 @@ fun GameInput()
 /*-------------------------
 _____MILITARY COMMANDS_____
 --------------------------*/
-        "create army" -> CreateNewArmy()
-        "create an army" -> CreateNewArmy()
-        "create an army worthy of Mordor!" -> CreateNewArmy()
+        "create army" ->
+        {
+            println("How would you like to call it?")
+            val newArmyName: String = readLine()!!
+            CreateNewArmy(newArmyName)
+        }
 
         "create general" -> CreateNewLeader()
-        "create a general" -> CreateNewLeader()
-        "create leader" -> CreateNewLeader()
-        "create a leader" -> CreateNewLeader()
 
         "assign general" -> AssignNewLeader()
-        "assign a general" -> AssignNewLeader()
-        "assign leader" -> AssignNewLeader()
-        "assign a leader" -> AssignNewLeader()
-
 
         /*"move army" ->
         {
@@ -44,8 +40,10 @@ _____MILITARY COMMANDS_____
 
         "move army" -> //manually for now
         {
-            var armyID = SelectArmy()
-            var command: String
+            println("What army do you want to select?")
+            val selectedName: String = readLine()!!
+            val armyID = SelectArmy(selectedName)
+            val command: String
             if (armyID != -1)
             {
                 println("Where do you want to move it? Type direction")
@@ -56,8 +54,11 @@ _____MILITARY COMMANDS_____
 
         "recruit into army" ->
         {
-            var armyID = SelectArmy()
-            var recruits: Int
+            println("What army do you want to select?")
+            val selectedName: String = readLine()!!
+
+            val armyID = SelectArmy(selectedName)
+            val recruits: Int
             if (armyID != -1)
             {
                 println("How much do you want to recruit?")
@@ -85,6 +86,30 @@ _____GENERAL COMMANDS_____
             gameFlag = false
             exit()
         }
-        else -> print("Unkonown command, please try again")
     }
+
+/*------------------------
+______REGEX COMMANDS______
+-------------------------*/
+    if (user_command!!.matches("create army (.+)".toRegex())) //e.g. create army abc
+    {
+        val Regex = "create army (.+)".toRegex()
+        val newArmyName = Regex.find(user_command)!!.groupValues.get(1).toString()
+
+        CreateNewArmy(newArmyName)
+    }
+
+    if (user_command!!.matches("recruit (\\d+) into army (.+)".toRegex()))
+    {
+        val Regex = "recruit (\\d+) into army (.+)".toRegex()
+        val recruits = Regex.find(user_command)!!.groupValues.get(1).toInt()
+        val selectedName = Regex.find(user_command)!!.groupValues.get(2)
+
+        var armyID = SelectArmy(selectedName)
+        if (armyID != -1)
+        {
+            ArmyList.get(armyID).increaseSize(recruits)
+        }
+    }
+
 }
