@@ -54,7 +54,7 @@ fun initInterface()
         }
 
         var armiesString:String = ""
-        if (ArmyList.size != 0)
+        if (ArmyList.size > 0)
         {
             for (Iterator in 0..ArmyList.size - 1)
             {
@@ -78,8 +78,56 @@ fun initInterface()
         }
     }
 
+fun updateInterface()
+{
+    for (Xiterator in 0..height-1)
+    {
+        for(Yiterator in 0..width-1)
+        {
+            if (Xiterator>0&&Xiterator<40&&Yiterator>0&&Yiterator<40)
+            {
+                if(ArmyList.size != 0)
+                {
+                    for (ArmyIterator in 0..ArmyList.size - 1)
+                    {
+                        screenArray[ArmyList[ArmyIterator].y+1][ArmyList[ArmyIterator].x+1] = "A".toCharArray().get(0)
+                    }
+                }
+            }
+        }
+    }
+
+    var armiesString:String = ""
+    if (ArmyList.size > 0)
+    {
+        for (Iterator in 0..ArmyList.size - 1)
+        {
+            armiesString.plus("ArmyList[Iterator].armyName (ArmyList[Iterator].armySize)\n")
+            print(armiesString)
+        }
+    } else
+    {
+        armiesString = "No armies"
+    }
+
+    var armiesStringIterator = 0
+
+    for (Xiterator in 0..height-1)
+    {
+        for(Yiterator in 0..width-1)
+        {
+            if (Xiterator>1&&Xiterator<42&&Yiterator>43&&Yiterator<56&&armiesStringIterator<armiesString.length)
+            {
+                screenArray[Xiterator][Yiterator] = armiesString.toCharArray().get(armiesStringIterator)
+                armiesStringIterator++
+            }
+        }
+    }
+}
+
 fun printInterface()
     {
+        updateInterface()
         for (Xiterator in 0..height-1)
         {
             for(Yiterator in 0..width-1)
