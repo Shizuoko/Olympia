@@ -61,7 +61,7 @@ fun initInterface()
                 armiesString.plus(ArmyList[Iterator].armyName + " (" + ArmyList[Iterator].armySize + ")" + "\n")
             }
         }
-        else{armiesString = "No armies"}
+        else{armiesString = ""}
 
         var armiesStringIterator = 0
 
@@ -100,14 +100,14 @@ fun updateInterface()
     var armiesString:String = ""
     if (ArmyList.size > 0)
     {
+        armiesString = ""
         for (Iterator in 0..ArmyList.size - 1)
         {
-            armiesString.plus("ArmyList[Iterator].armyName (ArmyList[Iterator].armySize)\n")
-            print(armiesString)
+            armiesString = armiesString + ArmyList[Iterator].armyName + " ("+ ArmyList[Iterator].armySize + ")"
         }
     } else
     {
-        armiesString = "No armies"
+        armiesString = ""
     }
 
     var armiesStringIterator = 0
