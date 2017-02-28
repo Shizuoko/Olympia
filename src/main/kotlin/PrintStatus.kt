@@ -7,12 +7,12 @@ import java.io.File
 
 
     val InterfaceFile: String = File("assets/interface.txt").readText(charset = Charsets.UTF_8).replace("\n", "").replace("\r", "")
-    val height = 44
-    val width = 57
+    val height = 43
+    val width = 42
     var C: Char = 1.toChar()
     var screenArray: Array<Array<Char>> = Array(height,{Array(width,{C})})
 
-fun initInterface()
+fun initMapInfo() //loading map and placing army locations on it
     {
         var InterfaceIterator = 0
 
@@ -52,35 +52,11 @@ fun initInterface()
                 }
             }
         }
-
-        var armiesString:String = ""
-        if (ArmyList.size > 0)
-        {
-            for (Iterator in 0..ArmyList.size - 1)
-            {
-                armiesString.plus(ArmyList[Iterator].armyName + " (" + ArmyList[Iterator].armySize + ")" + "\n")
-            }
-        }
-        else{armiesString = ""}
-
-        var armiesStringIterator = 0
-
-        for (Xiterator in 0..height-1)
-        {
-            for(Yiterator in 0..width-1)
-            {
-                if (Xiterator>1&&Xiterator<42&&Yiterator>43&&Yiterator<56&&armiesStringIterator<armiesString.length)
-                {
-                    screenArray[Xiterator][Yiterator] = armiesString.toCharArray().get(armiesStringIterator)
-                    armiesStringIterator++
-                }
-            }
-        }
     }
 
-fun updateInterface()
+fun updateMapInfo() //updating army locations
 {
-    for (Xiterator in 0..height-1) //showing terrain map with armies on it
+    for (Xiterator in 0..height-1)
     {
         for(Yiterator in 0..width-1)
         {
@@ -96,38 +72,11 @@ fun updateInterface()
             }
         }
     }
-
-    var armiesString:String = "" //preparing army list
-    if (ArmyList.size > 0)
-    {
-        armiesString = ""
-        for (Iterator in 0..ArmyList.size - 1)
-        {
-            armiesString = armiesString + ArmyList[Iterator].armyName + " ("+ ArmyList[Iterator].armySize + ")"
-        }
-    } else
-    {
-        armiesString = ""
-    }
-
-    var armiesStringIterator = 0
-
-    for (Xiterator in 0..height-1) //showing army list
-    {
-        for(Yiterator in 0..width-1)
-        {
-            if (Xiterator>1&&Xiterator<42&&Yiterator>43&&Yiterator<56&&armiesStringIterator<armiesString.length)
-            {
-                screenArray[Xiterator][Yiterator] = armiesString.toCharArray().get(armiesStringIterator)
-                armiesStringIterator++
-            }
-        }
-    }
 }
 
-fun printInterface()
+fun printStatus()
     {
-        updateInterface()
+        updateMapInfo()
 
         for (Xiterator in 0..height-1)
         {
@@ -136,5 +85,14 @@ fun printInterface()
                 print(screenArray[Xiterator][Yiterator])
             }
             print("\n")
+        }
+
+        println("Playing as: *** " + searchPlayerCountryName() + " ***")
+        for (Iterator in 0..Countries.size-1)
+        {
+            if (Countries[Iterator].player == true) {
+                println("We have " + Countries[Iterator].cash + " gold in our treasury")
+                break
+            }
         }
     }

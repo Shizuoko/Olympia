@@ -86,12 +86,21 @@ fun PrintCityNames()
     }
 }
 
-open class Cell(var terrain: String, var x: Int, var y: Int, var movementCost: Int)
+open class Cell(var terrain: String,
+                var x: Int,
+                var y: Int,
+                var movementCost: Int)
 {
 
 }
 
-class CityCell(var name: String, var id: Int, var controller: String, terrain: String, x: Int, y: Int, movementCost: Int) : Cell(terrain, x, y, movementCost)
+class CityCell(var name: String,
+               var id: Int,
+               var controller: String,
+               terrain: String,
+               x: Int,
+               y: Int,
+               movementCost: Int) : Cell(terrain, x, y, movementCost)
 {
     var armySize: Int = 10000
 }

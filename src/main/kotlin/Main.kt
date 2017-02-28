@@ -26,7 +26,7 @@ fun menu()
 
         LoadMap()
         LoadCities()
-        initInterface()
+        initMapInfo()
 
         ChooseCountry()
 
@@ -46,8 +46,7 @@ fun MainLoop(gameFlag: Boolean)
 {
     while (gameFlag == true)
     {
-        printInterface()
-        println("Playing as: *** " + searchPlayerCountryName() + " ***")
+        printStatus()
 
         while(nextTurn == false)
         {

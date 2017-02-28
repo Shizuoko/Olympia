@@ -153,7 +153,9 @@ fun ReloadArmiesMP()
     }
 }
 
-class Army(var armyName: String, var x: Int, var y: Int)
+class Army(var armyName: String,
+           var x: Int,
+           var y: Int)
 {
     var armySize: Int = 0
     var commandingOfficer: String = "No general"

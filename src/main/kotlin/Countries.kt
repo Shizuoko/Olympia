@@ -65,7 +65,9 @@ fun searchPlayerCountryName(): String
     return playerCountryName
 }
 
-class Country(var name: String, var id: Int, var player: Boolean)
+class Country(var name: String,
+              var id: Int,
+              var player: Boolean)
 {
-
+    var cash: Int = 100
 }
