@@ -1,0 +1,15 @@
+[{
+  "name": "Roman Republic",
+  "id": 1,
+  "player": false
+},
+{
+  "name": "Carthaginian Empire",
+  "id": 2,
+  "player": false
+},
+{
+  "name": "City of Athens",
+  "id": 3,
+  "player": false
+}]

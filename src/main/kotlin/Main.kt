@@ -23,9 +23,13 @@ fun menu()
     if(play!!.contains("play"))
     {
         println("OK, let's start!")
+
         LoadMap()
         LoadCities()
         initInterface()
+
+        ChooseCountry()
+
         MainLoop(gameFlag)
     }
     else if (play.contains("exit"))
@@ -43,6 +47,7 @@ fun MainLoop(gameFlag: Boolean)
     while (gameFlag == true)
     {
         printInterface()
+        println("Playing as: *** " + searchPlayerCountryName() + " ***")
 
         while(nextTurn == false)
         {

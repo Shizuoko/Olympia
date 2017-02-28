@@ -7,7 +7,7 @@ import java.io.File
 
 
     val InterfaceFile: String = File("assets/interface.txt").readText(charset = Charsets.UTF_8).replace("\n", "").replace("\r", "")
-    val height = 43
+    val height = 44
     val width = 57
     var C: Char = 1.toChar()
     var screenArray: Array<Array<Char>> = Array(height,{Array(width,{C})})
@@ -80,7 +80,7 @@ fun initInterface()
 
 fun updateInterface()
 {
-    for (Xiterator in 0..height-1)
+    for (Xiterator in 0..height-1) //showing terrain map with armies on it
     {
         for(Yiterator in 0..width-1)
         {
@@ -97,7 +97,7 @@ fun updateInterface()
         }
     }
 
-    var armiesString:String = ""
+    var armiesString:String = "" //preparing army list
     if (ArmyList.size > 0)
     {
         armiesString = ""
@@ -112,7 +112,7 @@ fun updateInterface()
 
     var armiesStringIterator = 0
 
-    for (Xiterator in 0..height-1)
+    for (Xiterator in 0..height-1) //showing army list
     {
         for(Yiterator in 0..width-1)
         {
@@ -128,6 +128,7 @@ fun updateInterface()
 fun printInterface()
     {
         updateInterface()
+
         for (Xiterator in 0..height-1)
         {
             for(Yiterator in 0..width-1)

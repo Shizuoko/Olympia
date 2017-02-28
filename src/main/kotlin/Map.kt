@@ -86,11 +86,6 @@ fun PrintCityNames()
     }
 }
 
-object Reader {
-    val JSON = jacksonObjectMapper()
-    val JSONFactory = JsonFactory()
-}
-
 open class Cell(var terrain: String, var x: Int, var y: Int, var movementCost: Int)
 {
 

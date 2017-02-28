@@ -3,6 +3,14 @@ import jdk.internal.util.xml.impl.Input
 /**
  * Created by Shizuoko on 17.02.2017.
  */
+fun ChooseCountry()
+{
+    println("What country do you want to choose? Type its ID, please:")
+    printCountries()
+    val playerID = readLine()!!.toInt()
+    countrySearchByID(playerID)
+}
+
 fun GameInput()
 {
     println("\nYour wish is my command:\n")
