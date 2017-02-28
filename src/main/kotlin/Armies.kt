@@ -65,17 +65,17 @@ fun CreateNewArmy(newArmyName: String)
     if (isDouble == false)
     {
         println("Where should we create an army? Pick a city from the list:")
-        PrintCityNames()
+        PrintPlayerCities()
         val cityName = readLine()!!
 
         var x: Int = 0
         var y: Int = 0
 
-        var searchResult: String = "There is no such city in the list"
+        var searchResult: String = "There is no such city on the list"
 
         for(Iterator in 0..Cities.size-1)
         {
-            if(Cities.get(Iterator).name.equals(cityName))
+            if(Cities.get(Iterator).name.equals(cityName) && Cities.get(Iterator).controller.equals(searchPlayerCountryName()))
             {
                 x = Cities.get(Iterator).x
                 y = Cities.get(Iterator).y

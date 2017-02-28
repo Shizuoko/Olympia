@@ -74,6 +74,51 @@ fun updateMapInfo() //updating army locations
     }
 }
 
+fun PrintCitiesCoords()
+{
+    for (Yindex: Int in 0..MapSize-1)
+    {
+        for (Xindex: Int in 0..MapSize-1)
+        {
+            if(Map[Yindex][Xindex].terrain == "C")
+            {
+                println("X:" + Xindex + " Y:" + Yindex)
+            }
+        }
+    }
+}
+
+fun PrintMap()
+{
+    for (Yindex: Int in 0..MapSize-1)
+    {
+        for (Xindex: Int in 0..MapSize-1)
+        {
+            print(Map[Yindex][Xindex].terrain)
+        }
+        print("\n")
+    }
+}
+
+fun PrintCityNames()
+{
+    for(Iterator in 0..Cities.size-1)
+    {
+        println(Cities.get(Iterator).name + " (" + Cities.get(Iterator).armySize + " recruits)")
+    }
+}
+
+fun PrintPlayerCities()
+{
+    for(Iterator in 0..Cities.size-1)
+    {
+        if(Cities.get(Iterator).controller.equals(searchPlayerCountryName()))
+        {
+            println(Cities.get(Iterator).name + " (" + Cities.get(Iterator).armySize + " recruits)")
+        }
+    }
+}
+
 fun printStatus()
     {
         updateMapInfo()

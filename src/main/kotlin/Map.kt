@@ -52,40 +52,6 @@ fun LoadCities()
     }
 }
 
-fun PrintCitiesCoords()
-{
-    for (Yindex: Int in 0..MapSize-1)
-    {
-        for (Xindex: Int in 0..MapSize-1)
-        {
-            if(Map[Yindex][Xindex].terrain == "C")
-            {
-                println("X:" + Xindex + " Y:" + Yindex)
-            }
-        }
-    }
-}
-
-fun PrintMap()
-{
-    for (Yindex: Int in 0..MapSize-1)
-    {
-        for (Xindex: Int in 0..MapSize-1)
-        {
-                print(Map[Yindex][Xindex].terrain)
-        }
-        print("\n")
-    }
-}
-
-fun PrintCityNames()
-{
-    for(Iterator in 0..Cities.size-1)
-    {
-        println(Cities.get(Iterator).name + " (" + Cities.get(Iterator).armySize + " recruits)")
-    }
-}
-
 open class Cell(var terrain: String,
                 var x: Int,
                 var y: Int,
