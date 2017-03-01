@@ -47,49 +47,40 @@ fun PrintArmyList(){
 
 fun CreateNewArmy(newArmyName: String)
 {
-    var isDouble = false
+    println("Where should we create an army? Pick a city from the list:")
+    PrintPlayerCities()
+    val cityName = readLine()!!
 
+    var armyID = 0
     if (ArmyList.size != 0)
     {
-        for (Iterator: Int in 0..ArmyList.size-1)
+        armyID = ArmyList.last().armyID + 1
+    }
+
+    var x: Int = 0
+    var y: Int = 0
+
+    var searchResult: Int = 0
+
+    for(Iterator in 0..Cities.size-1)
+    {
+        if(Cities.get(Iterator).name.equals(cityName) && Cities.get(Iterator).controller.equals(searchPlayerCountryName()))
         {
-            if (ArmyList.get(Iterator).armyName == newArmyName)
-            {
-                println("B-b-but Master, we already have an army with specified name!\n")
-                isDouble = true
-            }
+            x = Cities.get(Iterator).x
+            y = Cities.get(Iterator).y
+            searchResult++
         }
     }
 
-    if (isDouble == false)
+    if(searchResult != 1)
     {
-        println("Where should we create an army? Pick a city from the list:")
-        PrintPlayerCities()
-        val cityName = readLine()!!
-
-        var x: Int = 0
-        var y: Int = 0
-
-        var searchResult: Int = 0
-
-        for(Iterator in 0..Cities.size-1)
-        {
-            if(Cities.get(Iterator).name.equals(cityName) && Cities.get(Iterator).controller.equals(searchPlayerCountryName()))
-            {
-                x = Cities.get(Iterator).x
-                y = Cities.get(Iterator).y
-                searchResult++
-            }
-        }
-
-        if(searchResult != 1) {
             println("There is no such city in the list")
-        }
-        else {
-            val Army = Army(newArmyName, x, y)
-            ArmyList.add(Army)
-            println("Army " + newArmyName + " in " + cityName + " created successfully!")
-        }
+    }
+    else
+    {
+        val Army = Army(newArmyName, armyID, searchPlayerCountryID(), x, y)
+        ArmyList.add(Army)
+        println("Army " + newArmyName + " in " + cityName + " created successfully!")
     }
 }
 
@@ -138,7 +129,10 @@ fun ArmiesReport()
 {
     if (ArmyList.size != 0) {
         for (Iterator: Int in 0..ArmyList.size - 1) {
-            ArmyList.get(Iterator).report()
+            if(ArmyList.get(Iterator).armyControllerID == searchPlayerCountryID())
+            {
+                ArmyList.get(Iterator).report()
+            }
         }
     }
 }
@@ -153,6 +147,8 @@ fun ReloadArmiesMP()
 }
 
 class Army(var armyName: String,
+           var armyID: Int,
+           var armyControllerID: Int,
            var x: Int,
            var y: Int)
 {
@@ -162,67 +158,69 @@ class Army(var armyName: String,
 
     fun move(direction: String)
     {
+        if(armyControllerID == searchPlayerCountryID())
+        {
             //should've used 'when', but oh well
-            if (direction.toLowerCase() == "north" && y>0){
-                if (Map.get(x).get(y-1).movementCost <= movementPoints) {
+            if (direction.toLowerCase() == "north" && y > 0) {
+                if (Map.get(x).get(y - 1).movementCost <= movementPoints) {
                     y--
                     movementPoints -= Map.get(x).get(y).movementCost
                 }
             }
 
-            if (direction.toLowerCase() == "south" && y<MapSize-1){
-                if (Map.get(x).get(y+1).movementCost <= movementPoints) {
+            if (direction.toLowerCase() == "south" && y < MapSize - 1) {
+                if (Map.get(x).get(y + 1).movementCost <= movementPoints) {
                     y++
                     movementPoints -= Map.get(x).get(y).movementCost
                 }
             }
 
-            if (direction.toLowerCase() == "west" && x>0){
-                if (Map.get(x).get(x-1).movementCost <= movementPoints) {
+            if (direction.toLowerCase() == "west" && x > 0) {
+                if (Map.get(x).get(x - 1).movementCost <= movementPoints) {
                     x--
                     movementPoints -= Map.get(x).get(y).movementCost
                 }
             }
 
-            if (direction.toLowerCase() == "east" && x<MapSize-1){
-                if (Map.get(x).get(x+1).movementCost <= movementPoints) {
+            if (direction.toLowerCase() == "east" && x < MapSize - 1) {
+                if (Map.get(x).get(x + 1).movementCost <= movementPoints) {
                     x++
                     movementPoints -= Map.get(x).get(y).movementCost
                 }
             }
 
-            if (direction.toLowerCase() == "north-west" && x>0 && y>0) {
-                if (Map.get(x-1).get(y-1).movementCost <= movementPoints) {
+            if (direction.toLowerCase() == "north-west" && x > 0 && y > 0) {
+                if (Map.get(x - 1).get(y - 1).movementCost <= movementPoints) {
                     y--
                     x--
                     movementPoints -= Map.get(x).get(y).movementCost
                 }
             }
 
-            if (direction.toLowerCase() == "north-east" && x<MapSize-1 && y>0) {
-                if (Map.get(x+1).get(y-1).movementCost <= movementPoints) {
+            if (direction.toLowerCase() == "north-east" && x < MapSize - 1 && y > 0) {
+                if (Map.get(x + 1).get(y - 1).movementCost <= movementPoints) {
                     y--
                     x++
                     movementPoints -= Map.get(x).get(y).movementCost
                 }
             }
 
-            if (direction.toLowerCase() == "south-west" && x>0 && y<MapSize-1) {
-                if (Map.get(x-1).get(y+1).movementCost <= movementPoints) {
+            if (direction.toLowerCase() == "south-west" && x > 0 && y < MapSize - 1) {
+                if (Map.get(x - 1).get(y + 1).movementCost <= movementPoints) {
                     y++
                     x--
                     movementPoints -= Map.get(x).get(y).movementCost
                 }
             }
 
-            if (direction.toLowerCase() == "south-east" && x<MapSize-1 && y<MapSize-1) {
-                if (Map.get(x+1).get(y+1).movementCost <= movementPoints) {
+            if (direction.toLowerCase() == "south-east" && x < MapSize - 1 && y < MapSize - 1) {
+                if (Map.get(x + 1).get(y + 1).movementCost <= movementPoints) {
                     y++
                     x++
                     movementPoints -= Map.get(x).get(y).movementCost
                 }
             }
-
+        }
     }
 
     fun increaseSize(recruits: Int)

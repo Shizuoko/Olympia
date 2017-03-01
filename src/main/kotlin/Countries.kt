@@ -65,6 +65,36 @@ fun searchPlayerCountryName(): String
     return playerCountryName
 }
 
+fun changePlayerCountry(newCountry: String)
+{
+    for (Iterator in 0..Countries.size-1)
+    {
+        if(Countries[Iterator].player == true)
+        {
+            Countries[Iterator].player = false
+            break
+        }
+    }
+
+    var searchResult = 0
+
+    for (Iterator in 0..Countries.size-1)
+    {
+        if(Countries[Iterator].name.toLowerCase().equals(newCountry))
+        {
+            Countries[Iterator].player = true
+            println("Playing as: " + Countries[Iterator].name)
+            searchResult++
+            break
+        }
+    }
+
+    if (searchResult == 0)
+    {
+        println("There is no such country!")
+    }
+}
+
 class Country(var name: String,
               var id: Int,
               var player: Boolean)

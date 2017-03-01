@@ -107,7 +107,7 @@ ______REGEX COMMANDS______
         CreateNewArmy(newArmyName)
     }
 
-    if (user_command!!.matches("recruit (\\d+) into army (.+)".toRegex()))
+    if (user_command!!.matches("recruit (\\d+) into army (.+)".toRegex())) //e.g. recruit 500 into army abc
     {
         val Regex = "recruit (\\d+) into army (.+)".toRegex()
         val recruits = Regex.find(user_command)!!.groupValues.get(1).toInt()
@@ -118,6 +118,13 @@ ______REGEX COMMANDS______
         {
             ArmyList.get(armyID).increaseSize(recruits)
         }
+    }
+
+    if (user_command!!.matches("tag (.+)".toRegex())) //debug command, e.g. tag Roman Empire
+    {
+        val Regex = "tag (.+)".toRegex()
+        val countryName = Regex.find(user_command)!!.groupValues.get(1).toLowerCase()
+        changePlayerCountry(countryName)
     }
 
 }
