@@ -57,7 +57,6 @@ fun CreateNewArmy(newArmyName: String)
             {
                 println("B-b-but Master, we already have an army with specified name!\n")
                 isDouble = true
-                CreateNewArmy(newArmyName)
             }
         }
     }
@@ -71,7 +70,7 @@ fun CreateNewArmy(newArmyName: String)
         var x: Int = 0
         var y: Int = 0
 
-        var searchResult: String = "There is no such city on the list"
+        var searchResult: Int = 0
 
         for(Iterator in 0..Cities.size-1)
         {
@@ -79,17 +78,17 @@ fun CreateNewArmy(newArmyName: String)
             {
                 x = Cities.get(Iterator).x
                 y = Cities.get(Iterator).y
-                searchResult = Cities.get(Iterator).name
+                searchResult++
             }
         }
 
-        if(searchResult.equals("There is no such city in the list")) {
-            println(searchResult)
+        if(searchResult != 1) {
+            println("There is no such city in the list")
         }
         else {
             val Army = Army(newArmyName, x, y)
             ArmyList.add(Army)
-            println("Army " + newArmyName + " in " + searchResult + " created successfully!")
+            println("Army " + newArmyName + " in " + cityName + " created successfully!")
         }
     }
 }
