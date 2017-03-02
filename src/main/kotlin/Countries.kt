@@ -15,7 +15,7 @@ fun printCountries()
     }
 }
 
-fun countrySearchByID(id: Int)
+fun searchStartingCountry(id: Int)
 {
     var searchResult = 0
 
@@ -31,8 +31,41 @@ fun countrySearchByID(id: Int)
     if (searchResult == 0)
     {
         println("There is no country with specified ID")
+
         ChooseCountry()
     }
+}
+
+fun searchCountryNameByID(id: Int): String
+{
+    var countryName = "There is no country with specified IDy"
+
+    for (Iterator in 0..Countries.size-1)
+    {
+        if(Countries[Iterator].id == id)
+        {
+            countryName = Countries[Iterator].name
+            break
+        }
+    }
+
+    return countryName
+}
+
+fun searchCountryIDByName(name: String): Int
+{
+    var countryID = -1
+
+    for (Iterator in 0..Countries.size-1)
+    {
+        if(Countries[Iterator].name.toLowerCase().equals(name.toLowerCase()))
+        {
+            countryID = Countries[Iterator].id
+            break
+        }
+    }
+
+    return countryID
 }
 
 fun searchPlayerCountryID(): Int
@@ -100,4 +133,6 @@ class Country(var name: String,
               var player: Boolean)
 {
     var cash: Int = 100
+    var inPeaceWith: MutableList<Int> = arrayListOf()
+    var inWarWith: MutableList<Int> = arrayListOf()
 }

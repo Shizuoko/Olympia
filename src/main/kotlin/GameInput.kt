@@ -8,7 +8,7 @@ fun ChooseCountry()
     println("What country do you want to choose? Type its ID, please:")
     printCountries()
     val playerID = readLine()!!.toInt()
-    countrySearchByID(playerID)
+    searchStartingCountry(playerID)
 }
 
 fun GameInput()
@@ -60,21 +60,6 @@ _____MILITARY COMMANDS_____
             }
         }
 
-        "recruit into army" ->
-        {
-            println("What army do you want to select?")
-            val selectedName: String = readLine()!!
-
-            val armyID = SelectArmy(selectedName)
-            val recruits: Int
-            if (armyID != -1)
-            {
-                println("How much do you want to recruit?")
-                recruits = readLine()!!.toInt()
-                ArmyList.get(armyID).increaseSize(recruits)
-            }
-        }
-
         "print army list" -> PrintArmyList()
 
 /*-------------------------
@@ -107,16 +92,19 @@ ______REGEX COMMANDS______
         CreateNewArmy(newArmyName)
     }
 
-    if (user_command!!.matches("recruit (\\d+) into army (.+)".toRegex())) //e.g. recruit 500 into army abc
+    if (user_command!!.matches("recruit (\\d+) (.+) into army (.+)".toRegex())) //e.g. recruit 500 into army abc
     {
-        val Regex = "recruit (\\d+) into army (.+)".toRegex()
+        val Regex = "recruit (\\d+) (.+) into army (.+)".toRegex()
         val recruits = Regex.find(user_command)!!.groupValues.get(1).toInt()
-        val selectedName = Regex.find(user_command)!!.groupValues.get(2)
+        val selectedUnitType = Regex.find(user_command)!!.groupValues.get(2)
+        val selectedName = Regex.find(user_command)!!.groupValues.get(3)
 
-        var armyID = SelectArmy(selectedName)
-        if (armyID != -1)
+        if(selectedUnitType.equals("infantry") || selectedUnitType.equals("cavalry") || selectedUnitType.equals("archers"))
         {
-            ArmyList.get(armyID).increaseSize(recruits)
+            var armyID = SelectArmy(selectedName)
+            if (armyID != -1) {
+                ArmyList.get(armyID).increaseSize(selectedUnitType, recruits)
+            }
         }
     }
 
@@ -125,6 +113,21 @@ ______REGEX COMMANDS______
         val Regex = "tag (.+)".toRegex()
         val countryName = Regex.find(user_command)!!.groupValues.get(1).toLowerCase()
         changePlayerCountry(countryName)
+    }
+
+    if (user_command!!.matches("declare war on (.+)".toRegex())) //e.g. declare war on Roman Republic
+    {
+        val Regex = "declare war on (.+)".toRegex()
+        val countryName = Regex.find(user_command)!!.groupValues.get(1).toLowerCase()
+        val countryID = searchCountryIDByName(countryName)
+        if(countryID != -1)
+        {
+            declareWar(countryID)
+        }
+        else
+        {
+            println("There is no country with specified name")
+        }
     }
 
 }

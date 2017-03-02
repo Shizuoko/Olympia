@@ -37,7 +37,10 @@ fun SelectArmy(selectedName: String): Int {
 fun PrintArmyList(){
     if (ArmyList.size != 0) {
         for (Iterator: Int in 0..ArmyList.size - 1) {
-            println("ARMY LIST \n" + ":" + ArmyList.get(Iterator).armyName + " ----- " + ArmyList.get(Iterator).armySize + " soldiers")
+            println("ARMY LIST \n" + ":" + ArmyList.get(Iterator).armyName +
+                    " ----- " + ArmyList.get(Iterator).infantrySize + " infantry, " +
+                    ArmyList.get(Iterator).cavalrySize + "cavalry, " +
+                    ArmyList.get(Iterator).archersSize + "archers\n")
         }
     }
     else {
@@ -152,9 +155,11 @@ class Army(var armyName: String,
            var x: Int,
            var y: Int)
 {
-    var armySize: Int = 0
     var commandingOfficer: String = "No general"
     var movementPoints: Int = 200
+    var infantrySize: Int = 0
+    var cavalrySize: Int = 0
+    var archersSize: Int = 0
 
     fun move(direction: String)
     {
@@ -223,7 +228,7 @@ class Army(var armyName: String,
         }
     }
 
-    fun increaseSize(recruits: Int)
+    fun increaseSize(unitType: String, recruits: Int)
     {
         if (Map[x][y] is CityCell)
         {
@@ -231,7 +236,12 @@ class Army(var armyName: String,
             if (recruits < CityCell.armySize)
             {
                 CityCell.armySize = CityCell.armySize - recruits
-                armySize = armySize + recruits
+                when(unitType)
+                {
+                    "infantry" -> {infantrySize = infantrySize + recruits}
+                    "cavalry" -> {cavalrySize = cavalrySize + recruits}
+                    "archers" -> {archersSize = archersSize + recruits}
+                }
                 Map[x][y] = CityCell
             }
             else
@@ -255,7 +265,7 @@ class Army(var armyName: String,
             println("\n" + armyName + " is at: " + x + "," + y)
         }
         println("We have " + movementPoints + " movement points")
-        println("We have " + armySize + " recruits\n")
+        println("We have " + infantrySize + " infantry, " + cavalrySize + " cavalry, " + archersSize + " archers\n")
     }
 }
 

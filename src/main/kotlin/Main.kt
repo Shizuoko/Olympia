@@ -27,6 +27,7 @@ fun menu()
         LoadMap()
         LoadCities()
         initMapInfo()
+        initCountryRelations()
 
         ChooseCountry()
 
@@ -57,6 +58,7 @@ fun MainLoop(gameFlag: Boolean)
 
         nextTurn = false
 
+        battleCheck()
         ReloadArmiesMP() //MP = movement points
 
         cycleCount++
