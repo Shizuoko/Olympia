@@ -116,7 +116,7 @@ ______REGEX COMMANDS______
         }
     }
 
-    if (user_command!!.matches("move army (.+) to the (.+)".toRegex())) //e.g. declare war on Roman Republic
+    if (user_command!!.matches("move army (.+) to the (.+)".toRegex())) //e.g. move army 123 to the west
     {
         val Regex = "declare war on (.+)".toRegex()
         val selectedName = Regex.find(user_command)!!.groupValues.get(1).toLowerCase()
