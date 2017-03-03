@@ -67,7 +67,7 @@ fun CreateNewArmy(newArmyName: String)
 
     for(Iterator in 0..Cities.size-1)
     {
-        if(Cities.get(Iterator).name.equals(cityName) && Cities.get(Iterator).controller.equals(searchPlayerCountryName()))
+        if(Cities.get(Iterator).name.equals(cityName) && Cities.get(Iterator).controller.equals(searchPlayerCountryID()))
         {
             x = Cities.get(Iterator).x
             y = Cities.get(Iterator).y
@@ -157,74 +157,83 @@ class Army(var armyName: String,
 {
     var commandingOfficer: String = "No general"
     var movementPoints: Int = 200
+
+    var morale = 100
+
     var infantrySize: Int = 0
     var cavalrySize: Int = 0
     var archersSize: Int = 0
+    var totalSize: Int = infantrySize + cavalrySize + archersSize
 
     fun move(direction: String)
     {
-        if(armyControllerID == searchPlayerCountryID())
+        if (totalSize > 0) {
+            if (armyControllerID == searchPlayerCountryID()) {
+                //should've used 'when', but oh well
+                if (direction.toLowerCase() == "north" && y > 0) {
+                    if (Map.get(x).get(y - 1).movementCost <= movementPoints) {
+                        y--
+                        movementPoints -= Map.get(x).get(y).movementCost
+                    }
+                }
+
+                if (direction.toLowerCase() == "south" && y < MapSize - 1) {
+                    if (Map.get(x).get(y + 1).movementCost <= movementPoints) {
+                        y++
+                        movementPoints -= Map.get(x).get(y).movementCost
+                    }
+                }
+
+                if (direction.toLowerCase() == "west" && x > 0) {
+                    if (Map.get(x).get(x - 1).movementCost <= movementPoints) {
+                        x--
+                        movementPoints -= Map.get(x).get(y).movementCost
+                    }
+                }
+
+                if (direction.toLowerCase() == "east" && x < MapSize - 1) {
+                    if (Map.get(x).get(x + 1).movementCost <= movementPoints) {
+                        x++
+                        movementPoints -= Map.get(x).get(y).movementCost
+                    }
+                }
+
+                if (direction.toLowerCase() == "north-west" && x > 0 && y > 0) {
+                    if (Map.get(x - 1).get(y - 1).movementCost <= movementPoints) {
+                        y--
+                        x--
+                        movementPoints -= Map.get(x).get(y).movementCost
+                    }
+                }
+
+                if (direction.toLowerCase() == "north-east" && x < MapSize - 1 && y > 0) {
+                    if (Map.get(x + 1).get(y - 1).movementCost <= movementPoints) {
+                        y--
+                        x++
+                        movementPoints -= Map.get(x).get(y).movementCost
+                    }
+                }
+
+                if (direction.toLowerCase() == "south-west" && x > 0 && y < MapSize - 1) {
+                    if (Map.get(x - 1).get(y + 1).movementCost <= movementPoints) {
+                        y++
+                        x--
+                        movementPoints -= Map.get(x).get(y).movementCost
+                    }
+                }
+
+                if (direction.toLowerCase() == "south-east" && x < MapSize - 1 && y < MapSize - 1) {
+                    if (Map.get(x + 1).get(y + 1).movementCost <= movementPoints) {
+                        y++
+                        x++
+                        movementPoints -= Map.get(x).get(y).movementCost
+                    }
+                }
+            }
+        }
+        else
         {
-            //should've used 'when', but oh well
-            if (direction.toLowerCase() == "north" && y > 0) {
-                if (Map.get(x).get(y - 1).movementCost <= movementPoints) {
-                    y--
-                    movementPoints -= Map.get(x).get(y).movementCost
-                }
-            }
-
-            if (direction.toLowerCase() == "south" && y < MapSize - 1) {
-                if (Map.get(x).get(y + 1).movementCost <= movementPoints) {
-                    y++
-                    movementPoints -= Map.get(x).get(y).movementCost
-                }
-            }
-
-            if (direction.toLowerCase() == "west" && x > 0) {
-                if (Map.get(x).get(x - 1).movementCost <= movementPoints) {
-                    x--
-                    movementPoints -= Map.get(x).get(y).movementCost
-                }
-            }
-
-            if (direction.toLowerCase() == "east" && x < MapSize - 1) {
-                if (Map.get(x).get(x + 1).movementCost <= movementPoints) {
-                    x++
-                    movementPoints -= Map.get(x).get(y).movementCost
-                }
-            }
-
-            if (direction.toLowerCase() == "north-west" && x > 0 && y > 0) {
-                if (Map.get(x - 1).get(y - 1).movementCost <= movementPoints) {
-                    y--
-                    x--
-                    movementPoints -= Map.get(x).get(y).movementCost
-                }
-            }
-
-            if (direction.toLowerCase() == "north-east" && x < MapSize - 1 && y > 0) {
-                if (Map.get(x + 1).get(y - 1).movementCost <= movementPoints) {
-                    y--
-                    x++
-                    movementPoints -= Map.get(x).get(y).movementCost
-                }
-            }
-
-            if (direction.toLowerCase() == "south-west" && x > 0 && y < MapSize - 1) {
-                if (Map.get(x - 1).get(y + 1).movementCost <= movementPoints) {
-                    y++
-                    x--
-                    movementPoints -= Map.get(x).get(y).movementCost
-                }
-            }
-
-            if (direction.toLowerCase() == "south-east" && x < MapSize - 1 && y < MapSize - 1) {
-                if (Map.get(x + 1).get(y + 1).movementCost <= movementPoints) {
-                    y++
-                    x++
-                    movementPoints -= Map.get(x).get(y).movementCost
-                }
-            }
+            println("This army is empty, how can it move?")
         }
     }
 
@@ -233,7 +242,7 @@ class Army(var armyName: String,
         if (Map[x][y] is CityCell)
         {
             var CityCell: CityCell = Map[x][y] as CityCell
-            if (recruits < CityCell.armySize)
+            if (recruits <= CityCell.armySize && CityCell.controller == searchPlayerCountryID())
             {
                 CityCell.armySize = CityCell.armySize - recruits
                 when(unitType)
@@ -243,6 +252,7 @@ class Army(var armyName: String,
                     "archers" -> {archersSize = archersSize + recruits}
                 }
                 Map[x][y] = CityCell
+                updateTotalSize()
             }
             else
             {
@@ -255,6 +265,11 @@ class Army(var armyName: String,
         }
     }
 
+    fun updateTotalSize()
+    {
+        totalSize = infantrySize + cavalrySize + archersSize
+    }
+
     fun report()
     {
         if (Map[x][y] is CityCell) {
@@ -265,7 +280,8 @@ class Army(var armyName: String,
             println("\n" + armyName + " is at: " + x + "," + y)
         }
         println("We have " + movementPoints + " movement points")
-        println("We have " + infantrySize + " infantry, " + cavalrySize + " cavalry, " + archersSize + " archers\n")
+        println("We have " + infantrySize + " infantry, " + cavalrySize + " cavalry, " + archersSize + " archers")
+        println("" + totalSize + " soldiers in total\n")
     }
 }
 

@@ -1,7 +1,7 @@
 [{
   "name": "Rome",
   "id": 1,
-  "controller": "Roman Republic",
+  "controller": 1,
   "x": "7",
   "y": "4",
   "terrain": "C"
@@ -9,7 +9,7 @@
   {
     "name": "Carthage",
     "id": 2,
-    "controller": "Carthaginian Empire",
+    "controller": 2,
     "x": "26",
     "y": "23",
     "terrain": "C"
@@ -17,7 +17,7 @@
   {
     "name": "Athens",
     "id": 3,
-    "controller": "City of Athens",
+    "controller": 3,
     "x": "12",
     "y": "37",
     "terrain": "C"

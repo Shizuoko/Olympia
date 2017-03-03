@@ -46,20 +46,6 @@ _____MILITARY COMMANDS_____
             }
         }*/
 
-        "move army" -> //manually for now
-        {
-            println("What army do you want to select?")
-            val selectedName: String = readLine()!!
-            val armyID = SelectArmy(selectedName)
-            val command: String
-            if (armyID != -1)
-            {
-                println("Where do you want to move it? Type direction")
-                command = readLine()!!
-                ArmyList.get(armyID).move(command)
-            }
-        }
-
         "print army list" -> PrintArmyList()
 
 /*-------------------------
@@ -128,6 +114,20 @@ ______REGEX COMMANDS______
         {
             println("There is no country with specified name")
         }
+    }
+
+    if (user_command!!.matches("move army (.+) to the (.+)".toRegex())) //e.g. declare war on Roman Republic
+    {
+        val Regex = "declare war on (.+)".toRegex()
+        val selectedName = Regex.find(user_command)!!.groupValues.get(1).toLowerCase()
+        val command = Regex.find(user_command)!!.groupValues.get(2).toLowerCase()
+
+        val armyID = SelectArmy(selectedName)
+        if (armyID != -1)
+        {
+            ArmyList.get(armyID).move(command)
+        }
+
     }
 
 }

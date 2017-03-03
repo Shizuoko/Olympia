@@ -41,5 +41,5 @@ fun declareWar(countryID: Int)
 
 fun declarePeace(countryID: Int)
 {
-
+    //THERE IS ONLY WAR IN THE GRIM DARKNESS OF THE PAST
 }

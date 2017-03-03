@@ -62,7 +62,7 @@ open class Cell(var terrain: String,
 
 class CityCell(var name: String,
                var id: Int,
-               var controller: String,
+               var controller: Int,
                terrain: String,
                x: Int,
                y: Int,

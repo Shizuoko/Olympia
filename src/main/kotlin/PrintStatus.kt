@@ -112,7 +112,7 @@ fun PrintPlayerCities()
 {
     for(Iterator in 0..Cities.size-1)
     {
-        if(Cities.get(Iterator).controller.equals(searchPlayerCountryName()))
+        if(Cities.get(Iterator).controller.equals(searchPlayerCountryID()))
         {
             println(Cities.get(Iterator).name + " (" + Cities.get(Iterator).armySize + " recruits)")
         }
