@@ -1,23 +1,23 @@
 [{
   "name": "Rome",
-  "id": 1,
-  "controller": 1,
+  "id": 0,
+  "controller": 0,
   "x": "7",
   "y": "4",
   "terrain": "C"
 },
   {
     "name": "Carthage",
-    "id": 2,
-    "controller": 2,
+    "id": 1,
+    "controller": 1,
     "x": "26",
     "y": "23",
     "terrain": "C"
   },
   {
     "name": "Athens",
-    "id": 3,
-    "controller": 3,
+    "id": 2,
+    "controller": 2,
     "x": "12",
     "y": "37",
     "terrain": "C"

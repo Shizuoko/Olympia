@@ -24,8 +24,10 @@ fun declareWar(countryID: Int)
                 if (Countries[Iterator].inPeaceWith[peaceIterator] == countryID)
                 {
                     Countries[Iterator].inPeaceWith.remove(peaceIterator)
+                    break
                 }
             }
+            break
         }
     }
 
@@ -35,6 +37,31 @@ fun declareWar(countryID: Int)
         {
             Countries[Iterator].inWarWith.add(countryID)
             println("We are at war with " + searchCountryNameByID(countryID))
+            battleCheck()
+        }
+    }
+
+    for (Iterator in 0..Countries.size-1)
+    {
+        if (Countries[Iterator].id == countryID)
+        {
+            for (peaceIterator in 0..Countries[Iterator].inPeaceWith.size-1)
+            {
+                if (Countries[Iterator].inPeaceWith[peaceIterator] == searchPlayerCountryID())
+                {
+                    Countries[Iterator].inPeaceWith.remove(peaceIterator)
+                    break
+                }
+            }
+            break
+        }
+    }
+
+    for (Iterator in 0..Countries.size-1)
+    {
+        if (Countries[Iterator].id == countryID)
+        {
+            Countries[Iterator].inWarWith.add(searchPlayerCountryID())
         }
     }
 }

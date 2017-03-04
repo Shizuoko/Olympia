@@ -29,17 +29,20 @@ fun battleCheck()
 {
     if (ArmyList.size > 1)
     {
-        for (Iterator in 0..ArmyList.size - 1)
+        for (Iterator in 0..ArmyList.size - 2)
         {
-            if (ArmyList[Iterator].x == ArmyList[Iterator + 1].x && ArmyList[Iterator].y == ArmyList[Iterator + 1].y) //check if 2 armis are in the same province
+            if (ArmyList[Iterator].x == ArmyList[Iterator + 1].x && ArmyList[Iterator].y == ArmyList[Iterator + 1].y) //check if 2 armies are in the same province
             {
                 if(Countries[ArmyList[Iterator].armyControllerID].inWarWith.size != 0) //check if there are any wars declared for the first army
                 {
-                    for (WarIterator in 0..Countries[ArmyList[Iterator].armyControllerID].inWarWith.size)
+                    for (WarIterator in 0..Countries[ArmyList[Iterator].armyControllerID].inWarWith.size-1)
                     {
+
                         if(Countries[ArmyList[Iterator].armyControllerID].inWarWith[WarIterator] == ArmyList[Iterator + 1].armyControllerID) //check if these armies are at war
                         {
                             battle(Iterator, Iterator + 1)
+                            println(Iterator)
+                            println(Iterator + 1)
                         }
                     }
                 }
@@ -60,7 +63,7 @@ fun battle(firstSide: Int, secondSide: Int)
         {
             for (Xindex: Int in 0..battleHeight - 1)
             {
-                BattleMap[Yindex][Xindex].atack()
+                BattleMap[Xindex][Yindex].atack()
             }
         }
 
@@ -98,7 +101,7 @@ fun loadBattleMap(firstSide: Int, secondSide: Int)
                     if(ArmyList[firstSide].infantrySize > 0)
                     {
                         ArmyList[firstSide].infantrySize -= squadSize
-                        BattleMap[Yindex][Xindex].squadSize += squadSize
+                        BattleMap[Xindex][Yindex].squadSize += squadSize
                     }
                 }
                 infantryPlacement2 ->
@@ -108,7 +111,7 @@ fun loadBattleMap(firstSide: Int, secondSide: Int)
                     if(ArmyList[secondSide].infantrySize > 0)
                     {
                         ArmyList[secondSide].infantrySize -= squadSize
-                        BattleMap[Yindex][Xindex].squadSize += squadSize
+                        BattleMap[Xindex][Yindex].squadSize += squadSize
                     }
                 }
                 archersPlacement1 ->
@@ -118,7 +121,7 @@ fun loadBattleMap(firstSide: Int, secondSide: Int)
                     if(ArmyList[firstSide].archersSize > 0)
                     {
                         ArmyList[firstSide].archersSize -= squadSize
-                        BattleMap[Yindex][Xindex].squadSize += squadSize
+                        BattleMap[Xindex][Yindex].squadSize += squadSize
                     }
                 }
                 archersPlacement2 ->
@@ -128,33 +131,35 @@ fun loadBattleMap(firstSide: Int, secondSide: Int)
                     if(ArmyList[secondSide].archersSize > 0)
                     {
                         ArmyList[secondSide].archersSize -= squadSize
-                        BattleMap[Yindex][Xindex].squadSize += squadSize
+                        BattleMap[Xindex][Yindex].squadSize += squadSize
                     }
                 }
             }
 
-            if (Xindex == cavalryPlacement1 && Yindex < 3 || Yindex < battleWidth - 3)
+            if (Xindex == cavalryPlacement1 && (Yindex < 3 || Yindex < battleWidth - 3))
             {
                 side = 1
                 type = "cavalry"
                 if(ArmyList[firstSide].cavalrySize > 0)
                 {
+                    println("Yindex " + Yindex + "Xindex " + Xindex)
                     ArmyList[firstSide].cavalrySize -= squadSize
-                    BattleMap[Yindex][Xindex].squadSize += squadSize
+                    BattleMap[Xindex][Yindex].squadSize += squadSize
                 }
             }
-            if (Xindex == cavalryPlacement2 && Yindex < 3 || Yindex < battleWidth - 3)
+            if (Xindex == cavalryPlacement2 && (Yindex < 3 || Yindex < battleWidth - 3))
             {
                 side = 2
                 type = "cavalry"
                 if(ArmyList[secondSide].cavalrySize > 0)
                 {
+                    println("Yindex " + Yindex + "Xindex " + Xindex)
                     ArmyList[secondSide].cavalrySize -= squadSize
-                    BattleMap[Yindex][Xindex].squadSize += squadSize
+                    BattleMap[Xindex][Yindex].squadSize += squadSize
                 }
             }
 
-            BattleMap[Yindex][Xindex] = battleCell(x, y, side, type)
+            BattleMap[Xindex][Yindex] = battleCell(x, y, side, type)
             MapFileIterator++
         }
     }
@@ -192,24 +197,24 @@ class battleCell(var x: Int,
             if(squadType.equals("archers"))
             {
                 var attackDamage = (Math.random() * ((archersDamage*2)-(archersDamage/2)+1) * squadSize/5).toInt()
-                BattleMap[y][x + 2].squadSize -= attackDamage
-                if (report_every_atack == true){println("Our " + squadType + " killed " + attackDamage + "of enemy " + BattleMap[y][x + 2].squadType)}
+                BattleMap[x][y + 2].squadSize -= attackDamage
+                if (report_every_atack == true){println("Our " + squadType + " killed " + attackDamage + "of enemy " + BattleMap[x][y + 2].squadType)}
             }
 
             if(squadType.equals("infantry"))
             {
                 var attackDamage = (Math.random() * ((infantryDamage*2)-(infantryDamage/2)+1) * squadSize/5).toInt()
-                BattleMap[y][x + 1].squadSize -= attackDamage
-                if (report_every_atack == true){println("Our " + squadType + " killed " + attackDamage + "of enemy " + BattleMap[y][x + 2].squadType)}
+                BattleMap[x][y + 1].squadSize -= attackDamage
+                if (report_every_atack == true){println("Our " + squadType + " killed " + attackDamage + "of enemy " + BattleMap[x][y + 2].squadType)}
             }
 
             if(squadType.equals("cavalry"))
             {
                 var attackDamage = (Math.random() * ((cavalryDamage*2)-(cavalryDamage/2)+1) * squadSize/5).toInt()
-                BattleMap[y][x + 1].squadSize -= attackDamage
-                if(y != 0){BattleMap[y - 1][x + 1].squadSize -= attackDamage/2}
-                if(y != BattleMap.size - 1){BattleMap[y + 1][x + 1].squadSize -= attackDamage/2}
-                if (report_every_atack == true){println("Our " + squadType + " killed " + attackDamage * 2 + "of enemy " + BattleMap[y][x + 2].squadType)}
+                BattleMap[x][y + 1].squadSize -= attackDamage
+                if(x != 0){BattleMap[x - 1][y + 1].squadSize -= attackDamage/2}
+                if(x != BattleMap.size - 1){BattleMap[x + 1][y + 1].squadSize -= attackDamage/2}
+                if (report_every_atack == true){println("Our " + squadType + " killed " + attackDamage * 2 + "of the enemy soldiers")}
             }
         }
 
@@ -218,24 +223,24 @@ class battleCell(var x: Int,
             if(squadType.equals("archers"))
             {
                 var attackDamage = (Math.random() * ((archersDamage*2)-(archersDamage/2)+1) * squadSize/5).toInt()
-                BattleMap[y][x - 2].squadSize -= attackDamage
-                if (report_every_atack == true){println("Our " + squadType + " killed " + attackDamage + "of enemy " + BattleMap[y][x + 2].squadType)}
+                BattleMap[x][y - 2].squadSize -= attackDamage
+                if (report_every_atack == true){println("Our " + squadType + " killed " + attackDamage + "of enemy " + BattleMap[x][y - 2].squadType)}
             }
 
             if(squadType.equals("infantry"))
             {
                 var attackDamage = (Math.random() * ((infantryDamage*2)-(infantryDamage/2)+1) * squadSize/5).toInt()
-                BattleMap[y][x - 1].squadSize -= attackDamage
-                if (report_every_atack == true){println("Our " + squadType + " killed " + attackDamage + "of enemy " + BattleMap[y][x + 2].squadType)}
+                BattleMap[x][y - 1].squadSize -= attackDamage
+                if (report_every_atack == true){println("Our " + squadType + " killed " + attackDamage + "of enemy " + BattleMap[x][y - 2].squadType)}
             }
 
             if(squadType.equals("cavalry"))
             {
                 var attackDamage = (Math.random() * ((cavalryDamage*2)-(cavalryDamage/2)+1) * squadSize/5).toInt()
-                BattleMap[y][x - 1].squadSize -= attackDamage
-                if(y != 0){BattleMap[y + 1][x - 1].squadSize -= attackDamage/2}
-                if(y != BattleMap.size - 1){BattleMap[y - 1][x - 1].squadSize -= attackDamage/2}
-                if (report_every_atack == true){println("Our " + squadType + " killed " + attackDamage * 2 + "of enemy " + BattleMap[y][x + 2].squadType)}
+                BattleMap[x][y - 1].squadSize -= attackDamage
+                if(x != 0){BattleMap[x + 1][y - 1].squadSize -= attackDamage/2}
+                if(x != BattleMap.size - 1){BattleMap[x - 1][y - 1].squadSize -= attackDamage/2}
+                if (report_every_atack == true){println("Our " + squadType + " killed " + attackDamage * 2 + "of the enemy soldiers")}
             }
         }
     }

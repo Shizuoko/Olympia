@@ -78,7 +78,7 @@ ______REGEX COMMANDS______
         CreateNewArmy(newArmyName)
     }
 
-    if (user_command!!.matches("recruit (\\d+) (.+) into army (.+)".toRegex())) //e.g. recruit 500 into army abc
+    if (user_command!!.matches("recruit (\\d+) (.+) into army (.+)".toRegex())) //e.g. recruit 500 archers into army abc
     {
         val Regex = "recruit (\\d+) (.+) into army (.+)".toRegex()
         val recruits = Regex.find(user_command)!!.groupValues.get(1).toInt()
@@ -88,9 +88,27 @@ ______REGEX COMMANDS______
         if(selectedUnitType.equals("infantry") || selectedUnitType.equals("cavalry") || selectedUnitType.equals("archers"))
         {
             var armyID = SelectArmy(selectedName)
-            if (armyID != -1) {
+            if (armyID != -1)
+            {
                 ArmyList.get(armyID).increaseSize(selectedUnitType, recruits)
             }
+        }
+    }
+
+    if (user_command!!.matches("recruit (\\d+)i (\\d+)a (\\d+)c into army (.+)".toRegex())) //e.g. recruit 500i 700a 200c into army abc
+    {
+        val Regex = "recruit (\\d+)i (\\d+)a (\\d+)c into army (.+)".toRegex()
+        val recruitsI = Regex.find(user_command)!!.groupValues.get(1).toInt()
+        val recruitsA = Regex.find(user_command)!!.groupValues.get(2).toInt()
+        val recruitsC = Regex.find(user_command)!!.groupValues.get(3).toInt()
+        val selectedName = Regex.find(user_command)!!.groupValues.get(4)
+
+        var armyID = SelectArmy(selectedName)
+        if (armyID != -1)
+        {
+            ArmyList.get(armyID).increaseSize("infantry", recruitsI)
+            ArmyList.get(armyID).increaseSize("archers", recruitsA)
+            ArmyList.get(armyID).increaseSize("cavalry", recruitsC)
         }
     }
 
@@ -128,6 +146,21 @@ ______REGEX COMMANDS______
             ArmyList.get(armyID).move(command)
         }
 
+    }
+
+    if (user_command!!.matches("teleport (.+) to (\\d+) (\\d+)".toRegex())) //e.g. teleport 123 to 4 5
+    {
+        val Regex = "teleport (.+) to (\\d+) (\\d+)".toRegex()
+        val selectedName = Regex.find(user_command)!!.groupValues.get(1).toLowerCase()
+        val x = Regex.find(user_command)!!.groupValues.get(2).toInt()
+        val y = Regex.find(user_command)!!.groupValues.get(3).toInt()
+
+        val armyID = SelectArmy(selectedName)
+        if (armyID != -1)
+        {
+            ArmyList.get(armyID).x = x
+            ArmyList.get(armyID).y = y
+        }
     }
 
 }

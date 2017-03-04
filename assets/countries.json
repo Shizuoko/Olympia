@@ -1,15 +1,15 @@
 [{
   "name": "Roman Republic",
-  "id": 1,
+  "id": 0,
   "player": false
 },
 {
   "name": "Carthaginian Empire",
-  "id": 2,
+  "id": 1,
   "player": false
 },
 {
   "name": "City of Athens",
-  "id": 3,
+  "id": 2,
   "player": false
 }]
