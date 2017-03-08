@@ -46,8 +46,6 @@ fun battleCheck()
                         if(Countries[ArmyList[Iterator].armyControllerID].inWarWith[WarIterator] == ArmyList[Iterator + 1].armyControllerID) //check if these armies are at war
                         {
                             battle(Iterator, Iterator + 1)
-                            println(Iterator)
-                            println(Iterator + 1)
                         }
                     }
                 }
