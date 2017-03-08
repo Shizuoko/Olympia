@@ -74,7 +74,7 @@ ______DEBUG COMMANDS______
 _____GENERAL COMMANDS_____
 --------------------------*/
         "next turn" -> nextTurn = true
-        "main.exit" ->
+        "exit" ->
         {
             gameFlag = false
             exit()

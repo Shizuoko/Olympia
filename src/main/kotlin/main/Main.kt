@@ -46,7 +46,7 @@ fun menu()
 
         MainLoop(gameFlag)
     }
-    else if (play.contains("main.exit"))
+    else if (play.contains("exit"))
     {
         exit()
     }
