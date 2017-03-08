@@ -1,4 +1,13 @@
+package printStatus
+
+import armies.ArmyList
 import com.sun.xml.internal.fastinfoset.util.StringArray
+import countries.Countries
+import countries.searchPlayerCountryID
+import countries.searchPlayerCountryName
+import map.Cities
+import map.Map
+import map.MapSize
 import java.io.File
 
 /**
@@ -10,24 +19,24 @@ import java.io.File
     val height = 43
     val width = 42
     var C: Char = 1.toChar()
-    var screenArray: Array<Array<Char>> = Array(height,{Array(width,{C})})
+    var screenArray: Array<Array<Char>> = Array(height,{Array(width,{ C })})
 
 fun initMapInfo() //loading map and placing army locations on it
     {
         var InterfaceIterator = 0
 
-        for (Xiterator in 0..height-1)
+        for (Xiterator in 0..height -1)
         {
-            for(Yiterator in 0..width-1)
+            for(Yiterator in 0..width -1)
             {
                 screenArray[Xiterator][Yiterator] = InterfaceFile.get(InterfaceIterator)
                 InterfaceIterator++
             }
         }
 
-        for (Xiterator in 0..height-1)
+        for (Xiterator in 0..height -1)
         {
-            for(Yiterator in 0..width-1)
+            for(Yiterator in 0..width -1)
             {
                 if (Xiterator>0&&Xiterator<40&&Yiterator>0&&Yiterator<40)
                 {
@@ -36,9 +45,9 @@ fun initMapInfo() //loading map and placing army locations on it
             }
         }
 
-        for (Xiterator in 0..height-1)
+        for (Xiterator in 0..height -1)
         {
-            for(Yiterator in 0..width-1)
+            for(Yiterator in 0..width -1)
             {
                 if (Xiterator>0&&Xiterator<40&&Yiterator>0&&Yiterator<40)
                 {
@@ -56,9 +65,9 @@ fun initMapInfo() //loading map and placing army locations on it
 
 fun updateMapInfo() //updating army locations
 {
-    for (Xiterator in 0..height-1)
+    for (Xiterator in 0..height -1)
     {
-        for(Yiterator in 0..width-1)
+        for(Yiterator in 0..width -1)
         {
             if (Xiterator>0&&Xiterator<40&&Yiterator>0&&Yiterator<40)
             {
@@ -76,11 +85,11 @@ fun updateMapInfo() //updating army locations
 
 fun PrintCitiesCoords()
 {
-    for (Yindex: Int in 0..MapSize-1)
+    for (Yindex: Int in 0..MapSize -1)
     {
-        for (Xindex: Int in 0..MapSize-1)
+        for (Xindex: Int in 0..MapSize -1)
         {
-            if(Map[Yindex][Xindex].terrain == "C")
+            if(Map[Yindex][Xindex].terrain == "printStatus.getC")
             {
                 println("X:" + Xindex + " Y:" + Yindex)
             }
@@ -90,9 +99,9 @@ fun PrintCitiesCoords()
 
 fun PrintMap()
 {
-    for (Yindex: Int in 0..MapSize-1)
+    for (Yindex: Int in 0..MapSize -1)
     {
-        for (Xindex: Int in 0..MapSize-1)
+        for (Xindex: Int in 0..MapSize -1)
         {
             print(Map[Yindex][Xindex].terrain)
         }
@@ -123,9 +132,9 @@ fun printStatus()
     {
         updateMapInfo()
 
-        for (Xiterator in 0..height-1)
+        for (Xiterator in 0..height -1)
         {
-            for(Yiterator in 0..width-1)
+            for(Yiterator in 0..width -1)
             {
                 print(screenArray[Xiterator][Yiterator])
             }

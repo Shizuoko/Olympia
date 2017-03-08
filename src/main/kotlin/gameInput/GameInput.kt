@@ -1,4 +1,18 @@
+package gameInput
+
+import armies.*
+import countries.changePlayerCountry
+import countries.printCountries
+import countries.searchCountryIDByName
+import countries.searchStartingCountry
+import diplomacy.declareWar
 import jdk.internal.util.xml.impl.Input
+import main.exit
+import main.gameFlag
+import main.nextTurn
+import printStatus.PrintCitiesCoords
+import printStatus.PrintCityNames
+import printStatus.PrintMap
 
 /**
  * Created by Shizuoko on 17.02.2017.
@@ -33,7 +47,7 @@ _____MILITARY COMMANDS_____
 
         /*"move army" ->
         {
-            var armyID = SelectArmy()
+            var armyID = armies.SelectArmy()
             var command: String
             if (armyID != -1)
             {
@@ -42,7 +56,7 @@ _____MILITARY COMMANDS_____
                 var x = readLine()!!
                 println("y: ")
                 var y = readLine()!!
-                ArmyList.get(armyID).move()
+                armies.getArmyList.get(armyID).move()
             }
         }*/
 
@@ -60,7 +74,7 @@ ______DEBUG COMMANDS______
 _____GENERAL COMMANDS_____
 --------------------------*/
         "next turn" -> nextTurn = true
-        "exit" ->
+        "main.exit" ->
         {
             gameFlag = false
             exit()

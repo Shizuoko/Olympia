@@ -1,10 +1,23 @@
+package main
+
 /**
  * Created by Shizuoko on 17.02.2017.
  */
 
-import sun.plugin2.message.GetAppletMessage
+import armies.ArmiesReport
+import armies.ReloadArmiesMP
+import battles.battleCheck
+import diplomacy.initCountryRelations
+import gameInput.ChooseCountry
+import gameInput.GameInput
+import map.LoadCities
+import map.LoadMap
+import printStatus.initMapInfo
+import printStatus.printStatus
 import java.io.File
 import kotlin.system.exitProcess
+
+class Game
 
 fun main(args: Array<String>)
 {
@@ -18,7 +31,7 @@ var cycleCount: Int = 0
 fun menu()
 {
     println(File("assets/logo.txt").readText(charset = Charsets.UTF_8))
-    println("What should I do? Play or exit?\n")
+    println("What should I do? Play or main.exit?\n")
     val play = readLine()?.toLowerCase()
     if(play!!.contains("play"))
     {
@@ -33,7 +46,7 @@ fun menu()
 
         MainLoop(gameFlag)
     }
-    else if (play.contains("exit"))
+    else if (play.contains("main.exit"))
     {
         exit()
     }
@@ -43,6 +56,21 @@ fun menu()
         menu()
     }
 }
+
+
+fun gameStart()
+{
+        LoadMap()
+        LoadCities()
+        initMapInfo()
+        initCountryRelations()
+
+        ChooseCountry()
+
+        MainLoop(gameFlag)
+}
+
+
 fun MainLoop(gameFlag: Boolean)
 {
     while (gameFlag == true)

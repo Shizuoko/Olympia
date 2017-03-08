@@ -1,4 +1,12 @@
+package armies
+
+import countries.searchPlayerCountryID
+import map.Cities
+import map.CityCell
+import map.Map
+import map.MapSize
 import org.jetbrains.annotations.Mutable
+import printStatus.PrintPlayerCities
 import java.util.*
 
 /**
@@ -83,7 +91,7 @@ fun CreateNewArmy(newArmyName: String)
     {
         val Army = Army(newArmyName, armyID, searchPlayerCountryID(), x, y)
         ArmyList.add(Army)
-        println("Army " + newArmyName + " in " + cityName + " created successfully!")
+        println("armies.Army " + newArmyName + " in " + cityName + " created successfully!")
     }
 }
 

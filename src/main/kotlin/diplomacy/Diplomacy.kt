@@ -1,3 +1,10 @@
+package diplomacy
+
+import battles.battleCheck
+import countries.Countries
+import countries.searchCountryNameByID
+import countries.searchPlayerCountryID
+
 /**
  * Created by Shizuoko on 01.03.2017.
  */

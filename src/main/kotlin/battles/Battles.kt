@@ -1,3 +1,8 @@
+package battles
+
+import armies.ArmyList
+import countries.Countries
+import countries.searchCountryNameByID
 import java.io.File
 
 /**
@@ -23,7 +28,7 @@ val infantryDamage = 1.0F
 
 var report_every_atack: Boolean = true
 
-var BattleMap:Array<Array<battleCell>> = Array(battleHeight,{Array(battleWidth,{battleCell(0,0,0,0,"")})})
+var BattleMap:Array<Array<battleCell>> = Array(battleHeight,{Array(battleWidth,{ battleCell(0,0,0,0,"") })})
 
 fun battleCheck()
 {
@@ -210,21 +215,21 @@ class battleCell(var x: Int,
         {
             if(squadType.equals("archers"))
             {
-                attackDamage = (Math.random() * ((archersDamage*2)-(archersDamage/2)+1) * squadSize/5).toInt()
+                attackDamage = (Math.random() * ((archersDamage *2)-(archersDamage /2)+1) * squadSize/5).toInt()
                 BattleMap[x + 2][y].squadSize = BattleMap[x + 2][y].squadSize - attackDamage
                 if (report_every_atack == true){println("" + squadType + " killed " + attackDamage + "of enemy " + BattleMap[x + 2][y].squadType)}
             }
 
             if(squadType.equals("infantry"))
             {
-                attackDamage = (Math.random() * ((infantryDamage*2)-(infantryDamage/2)+1) * squadSize/5).toInt()
+                attackDamage = (Math.random() * ((infantryDamage *2)-(infantryDamage /2)+1) * squadSize/5).toInt()
                 BattleMap[x + 1][y].squadSize = BattleMap[x + 1][y].squadSize - attackDamage
                 if (report_every_atack == true){println("" + squadType + " killed " + attackDamage + "of enemy " + BattleMap[x + 1][y].squadType)}
             }
 
             if(squadType.equals("cavalry"))
             {
-                attackDamage = (Math.random() * ((cavalryDamage*2)-(cavalryDamage/2)+1) * squadSize/5).toInt()
+                attackDamage = (Math.random() * ((cavalryDamage *2)-(cavalryDamage /2)+1) * squadSize/5).toInt()
                 BattleMap[x + 1][y].squadSize = BattleMap[x + 1][y].squadSize - attackDamage
                 if(y > 0)
                 {
@@ -242,21 +247,21 @@ class battleCell(var x: Int,
         {
             if(squadType.equals("archers"))
             {
-                attackDamage = (Math.random() * ((archersDamage*2)-(archersDamage/2)+1) * squadSize/5).toInt()
+                attackDamage = (Math.random() * ((archersDamage *2)-(archersDamage /2)+1) * squadSize/5).toInt()
                 BattleMap[x - 2][y].squadSize = BattleMap[x - 2][y].squadSize - attackDamage
                 if (report_every_atack == true){println("" + squadType + " killed " + attackDamage + "of enemy " + BattleMap[x - 2][y].squadType)}
             }
 
             if(squadType.equals("infantry"))
             {
-                attackDamage = (Math.random() * ((infantryDamage*2)-(infantryDamage/2)+1) * squadSize/5).toInt()
+                attackDamage = (Math.random() * ((infantryDamage *2)-(infantryDamage /2)+1) * squadSize/5).toInt()
                 BattleMap[x - 1][y].squadSize = BattleMap[x - 1][y].squadSize - attackDamage
                 if (report_every_atack == true){println("" + squadType + " killed " + attackDamage + "of enemy " + BattleMap[x - 1][y].squadType)}
             }
 
             if(squadType.equals("cavalry"))
             {
-                attackDamage = (Math.random() * ((cavalryDamage*2)-(cavalryDamage/2)+1) * squadSize/5).toInt()
+                attackDamage = (Math.random() * ((cavalryDamage *2)-(cavalryDamage /2)+1) * squadSize/5).toInt()
                 BattleMap[x - 1][y].squadSize = BattleMap[x - 1][y].squadSize - attackDamage
                 if(y > 0)
                 {
