@@ -1,4 +1,4 @@
-package main
+package game
 
 /**
  * Created by Shizuoko on 17.02.2017.
@@ -31,7 +31,7 @@ var cycleCount: Int = 0
 fun menu()
 {
     println(File("assets/logo.txt").readText(charset = Charsets.UTF_8))
-    println("What should I do? Play or main.exit?\n")
+    println("What should I do? Play or game.exit?\n")
     val play = readLine()?.toLowerCase()
     if(play!!.contains("play"))
     {

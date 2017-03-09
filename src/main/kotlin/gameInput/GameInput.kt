@@ -7,9 +7,9 @@ import countries.searchCountryIDByName
 import countries.searchStartingCountry
 import diplomacy.declareWar
 import jdk.internal.util.xml.impl.Input
-import main.exit
-import main.gameFlag
-import main.nextTurn
+import game.exit
+import game.gameFlag
+import game.nextTurn
 import printStatus.PrintCitiesCoords
 import printStatus.PrintCityNames
 import printStatus.PrintMap
