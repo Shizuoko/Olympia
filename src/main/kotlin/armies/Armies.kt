@@ -5,7 +5,7 @@ import map.Cities
 import map.CityCell
 import map.Map
 import map.MapSize
-import org.jetbrains.annotations.Mutable
+//import org.jetbrains.annotations.Mutable
 import printStatus.PrintPlayerCities
 import java.util.*
 
